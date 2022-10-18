@@ -1,2 +1,2 @@
 # AoC
-My AoC solutions
+My AoC solutions. Feel free to use them for inspiration!
