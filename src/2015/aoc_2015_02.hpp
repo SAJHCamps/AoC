@@ -1,6 +1,6 @@
 #pragma once
 
-void aoc_20xx_01(bool test,bool part_1, bool part_2);
+void aoc_2015_02(bool test,bool part_1, bool part_2);
 /**
  * @brief Wrapper for running AoC program for corresponding day and year
  *

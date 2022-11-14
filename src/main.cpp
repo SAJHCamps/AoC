@@ -6,7 +6,7 @@
 //bunch of imports
 //2015
 #include "2015/aoc_2015_01.hpp"
-
+#include "2015/aoc_2015_02.hpp"
 //update when starting new year to ease specification
 #define MAX_YEAR 2015
 
@@ -43,9 +43,9 @@ struct ProgramOptions {
                     case 1:
                         aoc_2015_01(test, part_1, part_2);
                         break;
-//                    case 2:
-//                        aoc_20xx_02(test, part_1, part_2);
-//                        break;
+                    case 2:
+                        aoc_2015_02(test, part_1, part_2);
+                        break;
 //                    case 3:
 //                        aoc_20xx_03(test, part_1, part_2);
 //                        break;

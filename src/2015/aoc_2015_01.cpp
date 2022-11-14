@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 
-void run_part_1(bool test) {
+void run_2015_1_part_1(bool test) {
     std::ifstream file;
     std::cout << "Part 1 day 1" << std::endl;
     if (test) {
@@ -33,11 +33,11 @@ void run_part_1(bool test) {
     file.close();
 }
 
-void run_part_2(bool test) {
+void run_2015_1_part_2(bool test) {
     std::ifstream file;
     std::cout << "Part 1 day 1" << std::endl;
     if (test) {
-        file.open("../src/2015/test/test_1_1.txt");
+        file.open("../src/2015/test/test_1_2.txt");
         std::string answer;
         std::getline(file,answer);
         std::cout << "Test should give: " << answer << std::endl;
@@ -72,9 +72,9 @@ void run_part_2(bool test) {
 
 void aoc_2015_01(bool test,bool part_1, bool part_2) {
     if (part_1) {
-        run_part_1(test);
+        run_2015_1_part_1(test);
     }
     if (part_2) {
-        run_part_2(test);
+        run_2015_1_part_2(test);
     }
 }
