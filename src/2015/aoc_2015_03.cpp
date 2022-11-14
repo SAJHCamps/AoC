@@ -55,38 +55,66 @@ void run_2015_3_part_2(bool test) {
     std::ifstream file;
     std::cout << "Part 2 day 3" << std::endl;
     if (test) {
-        file.open("../src/2015/test/test_2_2.txt");
+        file.open("../src/2015/test/test_3_2.txt");
         std::string answer;
         std::getline(file,answer);
         std::cout << "Test should give: " << answer << std::endl;
     }
     else {
-        file.open("../src/2015/input/day_2.txt");
+        file.open("../src/2015/input/day_3.txt");
     }
     std::string input;
-    int sum = 0;
-    while (std::getline(file,input)) {
-        std::vector<int> numbers;
-        std::stringstream stream(input);
-        std::string number;
-
-        while (std::getline(stream, number, 'x')) {
-            numbers.push_back(std::stoi(number));
-        }
-
-        int smallest = std::numeric_limits<int>::max();
-        for (int i = 0; i < numbers.size(); i++) {
-            for (int j = i+1; j< numbers.size(); j++) {
-                int current = 2*(numbers[i]+numbers[j]);
-
-                if (current < smallest) {
-                    smallest = current;
-                }
+    std::getline(file,input);
+    int x_santa = 0;
+    int y_santa = 0;
+    int x_robot = 0;
+    int y_robot = 0;
+    int count = 0;
+    std::unordered_set<int> set;
+    set.insert(0);
+    for (auto &ch :input) {
+        if (count%2 == 0) {
+            switch (ch) {
+                case 'v':
+                    y_santa--;
+                    break;
+                case '^':
+                    y_santa++;
+                    break;
+                case '<':
+                    x_santa++;
+                    break;
+                case '>' :
+                    x_santa--;
+                    break;
+                default:
+                    break;
             }
+            set.insert(x_santa*8193 + y_santa);
         }
-        sum += smallest + numbers[0]*numbers[1]*numbers[2];;
+        else {
+            switch (ch) {
+                case 'v':
+                    y_robot--;
+                    break;
+                case '^':
+                    y_robot++;
+                    break;
+                case '<':
+                    x_robot++;
+                    break;
+                case '>' :
+                    x_robot--;
+                    break;
+                default:
+                    break;
+            }
+            set.insert(x_robot*8193 + y_robot);
+        }
+        count++;
     }
-    std::cout << sum << std::endl;
+
+    std::cout << set.size() << std::endl;
     file.close();
 }
 
