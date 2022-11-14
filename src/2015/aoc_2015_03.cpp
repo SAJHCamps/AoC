@@ -6,7 +6,7 @@
 #include <sstream>
 #include <limits>
 
-void run_2015_2_part_1(bool test) {
+void run_2015_3_part_1(bool test) {
     std::ifstream file;
     std::cout << "Part 1 day 2" << std::endl;
     if (test) {
@@ -48,7 +48,7 @@ void run_2015_2_part_1(bool test) {
     file.close();
 }
 
-void run_2015_2_part_2(bool test) {
+void run_2015_3_part_2(bool test) {
     std::ifstream file;
     std::cout << "Part 2 day 2" << std::endl;
     if (test) {
@@ -88,11 +88,11 @@ void run_2015_2_part_2(bool test) {
 }
 
 
-void aoc_2015_02(bool test,bool part_1, bool part_2) {
+void aoc_2015_03(bool test,bool part_1, bool part_2) {
     if (part_1) {
-        run_2015_2_part_1(test);
+        run_2015_3_part_1(test);
     }
     if (part_2) {
-        run_2015_2_part_2(test);
+        run_2015_3_part_2(test);
     }
 }
