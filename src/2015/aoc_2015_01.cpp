@@ -7,17 +7,29 @@ void run_part_1(bool test) {
     std::ifstream file;
     std::cout << "Part 1 day 1" << std::endl;
     if (test) {
-        file.open("../src/Template/test/test_1_1.txt");
+        file.open("../src/2015/test/test_1_1.txt");
         std::string answer;
         std::getline(file,answer);
         std::cout << "Test should give: " << answer << std::endl;
     }
     else {
-        file.open("../src/Template/input/day_1.txt");
+        file.open("../src/2015/input/day_1.txt");
     }
     std::string input;
     std::getline(file,input);
-    std::cout << input << std::endl;
+    int sum = 0;
+    for (auto &ch: input ) {
+        if (ch == '(') {
+            sum++;
+        }
+        else if (ch == ')') {
+            sum--;
+        }
+        else {
+            sum = -1000;
+        }
+    }
+    std::cout << sum << std::endl;
     file.close();
 }
 
@@ -25,13 +37,13 @@ void run_part_2(bool test) {
     std::ifstream file;
     std::cout << "Part 1 day 1" << std::endl;
     if (test) {
-        file.open("../src/Template/test/test_1_1.txt");
+        file.open("../src/2015/test/test_1_1.txt");
         std::string answer;
         std::getline(file,answer);
         std::cout << "Test should give: " << answer << std::endl;
     }
     else {
-        file.open("../src/Template/input/day_1.txt");
+        file.open("../src/2015/input/day_1.txt");
     }
     std::string input;
     std::getline(file,input);
