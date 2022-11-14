@@ -1,4 +1,4 @@
-#include "aoc_20xx_01.hpp"
+#include "aoc_2015_01.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -40,7 +40,7 @@ void run_part_2(bool test) {
 }
 
 
-void aoc_20xx_01(bool test,bool part_1, bool part_2) {
+void aoc_2015_01(bool test,bool part_1, bool part_2) {
     if (part_1) {
         run_part_1(test);
     }

@@ -4,10 +4,11 @@
 #include <vector>
 
 //bunch of imports
-#include "Template/aoc_20xx_01.hpp"
+//2015
+#include "2015/aoc_2015_01.hpp"
 
 //update when starting new year to ease specification
-#define MAX_YEAR 0
+#define MAX_YEAR 2015
 
 struct ProgramOptions {
     int year = MAX_YEAR;
@@ -37,10 +38,10 @@ struct ProgramOptions {
         std::cout << "Running year " << local_year << " day " << local_day << std::endl;
         auto start = std::chrono::high_resolution_clock::now();
         switch (local_year) {
-            case 0:
+            case 2015:
                 switch (local_day) {
                     case 1:
-                        aoc_20xx_01(test, part_1, part_2);
+                        aoc_2015_01(test, part_1, part_2);
                         break;
 //                    case 2:
 //                        aoc_20xx_02(test, part_1, part_2);
@@ -117,7 +118,7 @@ struct ProgramOptions {
                     default:
                         std::cout << "Day " << local_day << " not in range" << std::endl;
                 }
-            break;
+                break;
             default:
                 std::cout << "Year " << local_year << " not implemented" << std::endl;
         }
@@ -130,7 +131,7 @@ struct ProgramOptions {
     void run() {
         if (run_all) {
             //When gaps are filled vec is no longer needed
-            std::vector<int> implemented{0};
+            std::vector<int> implemented{2015};
             for (int i: implemented){
                 for (int j = 1; j < 26; j++) {
                     run_year_day(i, j);

@@ -8,7 +8,7 @@ include_directories(src)
 set(STANDARD_SRC
         src/main.cpp)
 
-set(TEMPLATE_SRC
-        src/Template/aoc_20xx_01.cpp src/Template/aoc_20xx_01.hpp)
+set(SRC_2015
+        src/2015/aoc_2015_01.cpp src/2015/aoc_2015_01.hpp)
 
-add_executable(${PROJECT_NAME} ${STANDARD_SRC} ${TEMPLATE_SRC})
+add_executable(${PROJECT_NAME} ${STANDARD_SRC} ${SRC_2015})
