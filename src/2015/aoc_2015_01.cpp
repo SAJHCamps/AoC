@@ -47,7 +47,25 @@ void run_part_2(bool test) {
     }
     std::string input;
     std::getline(file,input);
-    std::cout << input << std::endl;
+    int sum = 0;
+    int count = 0;
+    for (auto &ch: input ) {
+        count++;
+        if (ch == '(') {
+            sum++;
+        }
+        else if (ch == ')') {
+            sum--;
+        }
+        else {
+            sum = -1000;
+        }
+
+        if (sum == -1) {
+            std::cout << count << std::endl;
+            break;
+        }
+    }
     file.close();
 }
 
