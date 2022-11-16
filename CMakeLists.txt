@@ -11,6 +11,13 @@ set(STANDARD_SRC
 set(SRC_2015
         src/2015/aoc_2015_01.cpp src/2015/aoc_2015_01.hpp
         src/2015/aoc_2015_02.cpp src/2015/aoc_2015_02.hpp
-        src/2015/aoc_2015_03.cpp src/2015/aoc_2015_03.hpp)
+        src/2015/aoc_2015_03.cpp src/2015/aoc_2015_03.hpp
+        src/2015/aoc_2015_04.cpp src/2015/aoc_2015_04.hpp)
+
+#OpenSSl for 2015 day 4
+find_package(OpenSSL REQUIRED)
 
 add_executable(${PROJECT_NAME} ${STANDARD_SRC} ${SRC_2015})
+
+#OpenSSL for 2015 day 4
+target_link_libraries(${PROJECT_NAME} OpenSSL::Crypto)
