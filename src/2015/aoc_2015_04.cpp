@@ -52,56 +52,17 @@ void run_2015_4_part_2(bool test) {
     }
     std::string input;
     std::getline(file,input);
-    int x_santa = 0;
-    int y_santa = 0;
-    int x_robot = 0;
-    int y_robot = 0;
-    int count = 0;
-    std::unordered_set<int> set;
-    set.insert(0);
-    for (auto &ch :input) {
-        if (count%2 == 0) {
-            switch (ch) {
-                case 'v':
-                    y_santa--;
-                    break;
-                case '^':
-                    y_santa++;
-                    break;
-                case '<':
-                    x_santa++;
-                    break;
-                case '>' :
-                    x_santa--;
-                    break;
-                default:
-                    break;
-            }
-            set.insert(x_santa*8193 + y_santa);
-        }
-        else {
-            switch (ch) {
-                case 'v':
-                    y_robot--;
-                    break;
-                case '^':
-                    y_robot++;
-                    break;
-                case '<':
-                    x_robot++;
-                    break;
-                case '>' :
-                    x_robot--;
-                    break;
-                default:
-                    break;
-            }
-            set.insert(x_robot*8193 + y_robot);
-        }
-        count++;
-    }
+    int current_number = -1;
+    unsigned char hashed[MD5_DIGEST_LENGTH];
+    int sum;
+    do {
+        current_number++;
+        std::string current = input + std::to_string(current_number);
+        MD5((unsigned char*) current.c_str(), current.size(), hashed);
+        sum = hashed[0] + hashed[1] + hashed[2];
+    } while (sum != 0);
 
-    std::cout << set.size() << std::endl;
+    std::cout << current_number <<std::endl;
     file.close();
 }
 
