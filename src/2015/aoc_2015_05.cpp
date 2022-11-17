@@ -23,9 +23,30 @@ void run_2015_5_part_1(bool test) {
     }
 
     std::string input;
-    std::getline(file,input);
+    int nice_sum = 0;
+    while (std::getline(file,input)) {
+        if (input.find("ab") == std::string::npos && input.find("cd") == std::string::npos && input.find("pq") == std::string::npos && input.find("xy") == std::string::npos) {
 
-    std::cout << input <<std::endl;
+            int vowels = 0;
+            char previous = 0;
+            bool doubles = false;
+            for (auto &ch : input) {
+                if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+                    vowels++;
+                }
+                if (previous == ch) {
+                    doubles = true;
+                }
+                previous = ch;
+            }
+
+            if (doubles && vowels >= 3) {
+                nice_sum++;
+            }
+        }
+    }
+
+    std::cout << nice_sum <<std::endl;
     file.close();
 }
 
