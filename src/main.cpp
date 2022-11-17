@@ -10,6 +10,7 @@
 #include "2015/aoc_2015_03.hpp"
 #include "2015/aoc_2015_04.hpp"
 #include "2015/aoc_2015_05.hpp"
+#include "2015/aoc_2015_06.hpp"
 
 //update when starting new year to ease specification
 #define MAX_YEAR 2015
@@ -59,9 +60,9 @@ struct ProgramOptions {
                     case 5:
                         aoc_2015_05(test, part_1, part_2);
                         break;
-//                    case 6:
-//                        aoc_20xx_06(test, part_1, part_2);
-//                        break;
+                    case 6:
+                        aoc_2015_06(test, part_1, part_2);
+                        break;
 //                    case 7:
 //                        aoc_20xx_07(test, part_1, part_2);
 //                        break;

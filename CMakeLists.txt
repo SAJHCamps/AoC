@@ -13,7 +13,8 @@ set(SRC_2015
         src/2015/aoc_2015_02.cpp src/2015/aoc_2015_02.hpp
         src/2015/aoc_2015_03.cpp src/2015/aoc_2015_03.hpp
         src/2015/aoc_2015_04.cpp src/2015/aoc_2015_04.hpp
-        src/2015/aoc_2015_05.cpp src/2015/aoc_2015_05.hpp)
+        src/2015/aoc_2015_05.cpp src/2015/aoc_2015_05.hpp
+        src/2015/aoc_2015_06.cpp src/2015/aoc_2015_06.hpp)
 
 #OpenSSl for 2015 day 4
 find_package(OpenSSL REQUIRED)
