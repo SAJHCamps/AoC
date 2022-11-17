@@ -63,9 +63,28 @@ void run_2015_5_part_2(bool test) {
         file.open("../src/2015/input/day_5.txt");
     }
     std::string input;
-    std::getline(file,input);
+    int nice_sum = 0;
+    while (std::getline(file,input)) {
+        bool pairs = false;
+        bool sandwich = false;
+        for (int i = 0; i < input.size()-3; i++) {
+            if (input.find(input.substr(i,2), i+2) != std::string::npos) {
+                pairs = true;
+            }
+        }
 
-    std::cout << input <<std::endl;
+        for (int i = 0; i < input.size() -2; i++) {
+            if (input[i] == input[i+2]) {
+                sandwich = true;
+            }
+        }
+
+        if (sandwich && pairs) {
+            nice_sum++;
+        }
+    }
+
+    std::cout << nice_sum <<std::endl;
     file.close();
 }
 
