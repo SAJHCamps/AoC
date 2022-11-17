@@ -24,17 +24,8 @@ void run_2015_5_part_1(bool test) {
 
     std::string input;
     std::getline(file,input);
-    int current_number = -1;
-    unsigned char hashed[MD5_DIGEST_LENGTH];
-    int sum;
-    do {
-        current_number++;
-        std::string current = input + std::to_string(current_number);
-        MD5((unsigned char*) current.c_str(), current.size(), hashed);
-        sum = hashed[0] + hashed[1] + hashed[2]/16;
-    } while (sum != 0);
 
-    std::cout << current_number <<std::endl;
+    std::cout << input <<std::endl;
     file.close();
 }
 
@@ -52,17 +43,8 @@ void run_2015_5_part_2(bool test) {
     }
     std::string input;
     std::getline(file,input);
-    int current_number = -1;
-    unsigned char hashed[MD5_DIGEST_LENGTH];
-    int sum;
-    do {
-        current_number++;
-        std::string current = input + std::to_string(current_number);
-        MD5((unsigned char*) current.c_str(), current.size(), hashed);
-        sum = hashed[0] + hashed[1] + hashed[2];
-    } while (sum != 0);
 
-    std::cout << current_number <<std::endl;
+    std::cout << input <<std::endl;
     file.close();
 }
 
