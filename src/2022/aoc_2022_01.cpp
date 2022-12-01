@@ -16,20 +16,20 @@ void run_2022_1_part_1(bool test) {
         file.open("../src/2022/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    int sum = 0;
-    for (auto &ch: input ) {
-        if (ch == '(') {
-            sum++;
-        }
-        else if (ch == ')') {
-            sum--;
+    int max = 0;
+    int current = 0;
+    while (std::getline(file,input)) {
+        if (input.empty()) {
+            if (current > max) {
+                max = current;
+            }
+            current = 0;
         }
         else {
-            sum = -1000;
+            current += stoi(input);
         }
     }
-    std::cout << sum << std::endl;
+    std::cout << max << std::endl;
     file.close();
 }
 
