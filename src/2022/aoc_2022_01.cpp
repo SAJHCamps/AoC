@@ -2,6 +2,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
+#include <sstream>
+#include <limits>
+#include <unordered_set>
+#include <tuple>
+#include <openssl/md5.h>
+#include <bits/stdc++.h>
 
 void run_2022_1_part_1(bool test) {
     std::ifstream file;
@@ -46,26 +53,19 @@ void run_2022_1_part_2(bool test) {
         file.open("../src/2022/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    int sum = 0;
-    int count = 0;
-    for (auto &ch: input ) {
-        count++;
-        if (ch == '(') {
-            sum++;
-        }
-        else if (ch == ')') {
-            sum--;
+    std::vector<int> result;
+    int current = 0;
+    while (std::getline(file,input)) {
+        if (input.empty()) {
+            result.push_back(current);
+            current = 0;
         }
         else {
-            sum = -1000;
-        }
-
-        if (sum == -1) {
-            std::cout << count << std::endl;
-            break;
+            current += stoi(input);
         }
     }
+    std::sort(result.begin(), result.end(),std::greater<int>());
+    std::cout << result[0]+result[1]+result[2] << std::endl;
     file.close();
 }
 
