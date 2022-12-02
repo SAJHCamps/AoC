@@ -14,6 +14,7 @@
 
 //2022
 #include "2022/aoc_2022_01.hpp"
+#include "2022/aoc_2022_02.hpp"
 
 
 //update when starting new year to ease specification
@@ -133,9 +134,9 @@ struct ProgramOptions {
                     case 1:
                         aoc_2022_01(test, part_1, part_2);
                         break;
-//                    case 2:
-//                        aoc_2015_02(test, part_1, part_2);
-//                        break;
+                    case 2:
+                        aoc_2022_02(test, part_1, part_2);
+                        break;
 //                    case 3:
 //                        aoc_2015_03(test, part_1, part_2);
 //                        break;
