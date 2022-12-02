@@ -93,18 +93,59 @@ void run_2022_2_part_2(bool test) {
     }
     std::string input;
     std::vector<int> result;
-    int current = 0;
+    int score = 0;
     while (std::getline(file,input)) {
-        if (input.empty()) {
-            result.push_back(current);
-            current = 0;
-        }
-        else {
-            current += stoi(input);
+        switch (input[0]) {
+            case 'A':
+                switch (input[2]) {
+                    case 'X':
+                        score += 3;
+                        break;
+                    case 'Y':
+                        score += 4;
+                        break;
+                    case 'Z':
+                        score += 8;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 'B':
+                switch (input[2]) {
+                    case 'X':
+                        score += 1;
+                        break;
+                    case 'Y':
+                        score += 5;
+                        break;
+                    case 'Z':
+                        score += 9;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 'C':
+                switch (input[2]) {
+                    case 'X':
+                        score += 2;
+                        break;
+                    case 'Y':
+                        score += 6;
+                        break;
+                    case 'Z':
+                        score += 7;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
         }
     }
-    std::sort(result.begin(), result.end(),std::greater<int>());
-    std::cout << result[0]+result[1]+result[2] << std::endl;
+    std::cout << score << std::endl;
     file.close();
 }
 
