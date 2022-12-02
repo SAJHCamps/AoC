@@ -23,20 +23,59 @@ void run_2022_2_part_1(bool test) {
         file.open("../src/2022/input/day_2.txt");
     }
     std::string input;
-    int max = 0;
-    int current = 0;
+    int score = 0;
     while (std::getline(file,input)) {
-        if (input.empty()) {
-            if (current > max) {
-                max = current;
-            }
-            current = 0;
-        }
-        else {
-            current += stoi(input);
+        switch (input[0]) {
+            case 'A':
+                switch (input[2]) {
+                    case 'X':
+                        score += 4;
+                        break;
+                    case 'Y':
+                        score += 8;
+                        break;
+                    case 'Z':
+                        score += 3;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 'B':
+                switch (input[2]) {
+                    case 'X':
+                        score += 1;
+                        break;
+                    case 'Y':
+                        score += 5;
+                        break;
+                    case 'Z':
+                        score += 9;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 'C':
+                switch (input[2]) {
+                    case 'X':
+                        score += 7;
+                        break;
+                    case 'Y':
+                        score += 2;
+                        break;
+                    case 'Z':
+                        score += 6;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
         }
     }
-    std::cout << max << std::endl;
+    std::cout << score << std::endl;
     file.close();
 }
 
