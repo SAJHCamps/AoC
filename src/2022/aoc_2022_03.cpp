@@ -55,57 +55,25 @@ void run_2022_3_part_2(bool test) {
         file.open("../src/2022/input/day_3.txt");
     }
     std::string input;
-    std::vector<int> result;
     int score = 0;
+    int count = 0;
+    std::set<char> total_intersection;
     while (std::getline(file,input)) {
-        switch (input[0]) {
-            case 'A':
-                switch (input[2]) {
-                    case 'X':
-                        score += 3;
-                        break;
-                    case 'Y':
-                        score += 4;
-                        break;
-                    case 'Z':
-                        score += 8;
-                        break;
-                    default:
-                        break;
+        std::string second_line;
+        std::string third_line;
+        std::getline(file, second_line);
+        std::getline(file, third_line);
+        for (auto ch: input) {
+            if (second_line.find(ch) != std::string::npos && third_line.find(ch) != std::string::npos) {
+                if (ch >= char ('A') && ch <= char ('Z')) {
+                    score += ch - char ('A') + 27;
+                    break;
                 }
-                break;
-            case 'B':
-                switch (input[2]) {
-                    case 'X':
-                        score += 1;
-                        break;
-                    case 'Y':
-                        score += 5;
-                        break;
-                    case 'Z':
-                        score += 9;
-                        break;
-                    default:
-                        break;
+                else {
+                    score += ch - char ('a') + 1;
+                    break;
                 }
-                break;
-            case 'C':
-                switch (input[2]) {
-                    case 'X':
-                        score += 2;
-                        break;
-                    case 'Y':
-                        score += 6;
-                        break;
-                    case 'Z':
-                        score += 7;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
+            }
         }
     }
     std::cout << score << std::endl;
