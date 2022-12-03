@@ -25,54 +25,17 @@ void run_2022_3_part_1(bool test) {
     std::string input;
     int score = 0;
     while (std::getline(file,input)) {
-        switch (input[0]) {
-            case 'A':
-                switch (input[2]) {
-                    case 'X':
-                        score += 4;
-                        break;
-                    case 'Y':
-                        score += 8;
-                        break;
-                    case 'Z':
-                        score += 3;
-                        break;
-                    default:
-                        break;
+        for (int i = 0; i < input.size()/2; i++) {
+            if (input.find(input[i], input.size()/2) != std::string::npos) {
+                if (input[i] >= char ('A') && input[i] <= char ('Z')) {
+                    score += char (input[i]) - char ('A') + 27;
+                    break;
                 }
-                break;
-            case 'B':
-                switch (input[2]) {
-                    case 'X':
-                        score += 1;
-                        break;
-                    case 'Y':
-                        score += 5;
-                        break;
-                    case 'Z':
-                        score += 9;
-                        break;
-                    default:
-                        break;
+                else {
+                    score += char (input[i]) - char ('a') + 1;
+                    break;
                 }
-                break;
-            case 'C':
-                switch (input[2]) {
-                    case 'X':
-                        score += 7;
-                        break;
-                    case 'Y':
-                        score += 2;
-                        break;
-                    case 'Z':
-                        score += 6;
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
+            }
         }
     }
     std::cout << score << std::endl;
