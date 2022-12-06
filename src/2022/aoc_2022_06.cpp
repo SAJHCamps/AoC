@@ -23,22 +23,15 @@ void run_2022_6_part_1(bool test) {
         file.open("../src/2022/input/day_6.txt");
     }
     std::string input;
-    int score = 0;
-    while (std::getline(file,input)) {
-        for (int i = 0; i < input.size()/2; i++) {
-            if (input.find(input[i], input.size()/2) != std::string::npos) {
-                if (input[i] >= char ('A') && input[i] <= char ('Z')) {
-                    score += char (input[i]) - char ('A') + 27;
-                    break;
-                }
-                else {
-                    score += char (input[i]) - char ('a') + 1;
-                    break;
-                }
-            }
+    std::getline(file, input);
+    int found;
+    for (int i = 0; i < input.length(); i++) {
+        if (input[i] != input[i+1] && input[i] != input[i+2] && input[i] != input[i+3] && input[i+1] != input[i+2] && input[i+1] != input[i+3] && input[i+2] != input[i+3]) {
+            found = i + 4;
+            break;
         }
     }
-    std::cout << score << std::endl;
+    std::cout << found << std::endl;
     file.close();
 }
 
