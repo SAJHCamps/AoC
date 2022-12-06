@@ -17,6 +17,8 @@
 #include "2022/aoc_2022_02.hpp"
 #include "2022/aoc_2022_03.hpp"
 #include "2022/aoc_2022_04.hpp"
+#include "2022/aoc_2022_05.hpp"
+#include "2022/aoc_2022_06.hpp"
 
 //update when starting new year to ease specification
 #define MAX_YEAR 2022
@@ -144,12 +146,12 @@ struct ProgramOptions {
                     case 4:
                         aoc_2022_04(test, part_1, part_2);
                         break;
-//                    case 5:
-//                        aoc_2015_05(test, part_1, part_2);
-//                        break;
-//                    case 6:
-//                        aoc_2015_06(test, part_1, part_2);
-//                        break;
+                    case 5:
+                        aoc_2022_05(test, part_1, part_2);
+                        break;
+                    case 6:
+                        aoc_2022_06(test, part_1, part_2);
+                        break;
 //                    case 7:
 //                        aoc_20xx_07(test, part_1, part_2);
 //                        break;
@@ -221,7 +223,7 @@ struct ProgramOptions {
     void run() {
         if (run_all) {
             //When gaps are filled vec is no longer needed
-            std::vector<int> implemented{2015};
+            std::vector<int> implemented{2015, 2022};
             for (int i: implemented){
                 for (int j = 1; j < 26; j++) {
                     run_year_day(i, j);
