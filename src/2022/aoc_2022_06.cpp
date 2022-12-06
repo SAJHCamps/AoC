@@ -48,28 +48,23 @@ void run_2022_6_part_2(bool test) {
         file.open("../src/2022/input/day_6.txt");
     }
     std::string input;
-    int score = 0;
-    int count = 0;
-    std::set<char> total_intersection;
-    while (std::getline(file,input)) {
-        std::string second_line;
-        std::string third_line;
-        std::getline(file, second_line);
-        std::getline(file, third_line);
-        for (auto ch: input) {
-            if (second_line.find(ch) != std::string::npos && third_line.find(ch) != std::string::npos) {
-                if (ch >= char ('A') && ch <= char ('Z')) {
-                    score += ch - char ('A') + 27;
-                    break;
-                }
-                else {
-                    score += ch - char ('a') + 1;
-                    break;
-                }
-            }
+    std::getline(file, input);
+    int found = 0;
+    std::set<char> current;
+    for (int i = 0; i < 13; i++) {
+        current.insert(input[i]);
+    }
+    for (int i = 0; i < input.length()-14; i++) {
+        std::set<char> current;
+        for (int j = i; j < 14+i; j++) {
+            current.insert(input[j]);
+        }
+        if (current.size() == 14) {
+            found = i + 14;
+            break;
         }
     }
-    std::cout << score << std::endl;
+    std::cout << found << std::endl;
     file.close();
 }
 
