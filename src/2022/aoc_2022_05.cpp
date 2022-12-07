@@ -82,28 +82,55 @@ void run_2022_5_part_2(bool test) {
         file.open("../src/2022/input/day_5.txt");
     }
     std::string input;
-    int score = 0;
-    int count = 0;
-    std::set<char> total_intersection;
-    while (std::getline(file,input)) {
-        std::string second_line;
-        std::string third_line;
-        std::getline(file, second_line);
-        std::getline(file, third_line);
-        for (auto ch: input) {
-            if (second_line.find(ch) != std::string::npos && third_line.find(ch) != std::string::npos) {
-                if (ch >= char ('A') && ch <= char ('Z')) {
-                    score += ch - char ('A') + 27;
-                    break;
-                }
-                else {
-                    score += ch - char ('a') + 1;
-                    break;
-                }
+    std::getline(file,input);
+    std::vector<std::string> initial = {};
+    while (input.length() != 0) {
+        initial.push_back(input);
+        std::getline(file,input);
+    }
+    std::vector<std::vector<char>> stacks;
+    int number_stacks = (initial[initial.size()-1].length() + 2)/4;
+    for (int i = 0; i < number_stacks; i++) {
+        stacks.push_back({});
+    }
+
+    for (int i = initial.size()-2;i >= 0; i--) {
+        std::string current_line  = initial[i];
+        for (int j = 1; j < current_line.length(); j += 4) {
+            if (current_line[j] != ' ') {
+                stacks[j / 4].push_back(current_line[j]);
             }
         }
     }
-    std::cout << score << std::endl;
+
+    while (std::getline(file,input)) {
+        int start = input.find_first_of("0123456789");
+        int end = input.find_first_not_of("0123456789", start);
+        int amount  = std::stoi(input.substr(start, end));
+        start = input.find_first_of("0123456789", end);
+        end = input.find_first_not_of("0123456789", start);
+        int from  = std::stoi(input.substr(start, end))-1;
+        start = input.find_first_of("0123456789", end);
+        end = input.find_first_not_of("0123456789", start);
+        int to  = std::stoi(input.substr(start, end))-1;
+        std::vector<char> temp= {};
+        for (int i = 0; i < amount; i++) {
+            char result = stacks[from].back();
+            stacks[from].pop_back();
+            temp.push_back(result);
+        }
+        for (int i = 0; i < amount; i++) {
+            char result = temp.back();
+            temp.pop_back();
+            stacks[to].push_back(result);
+        }
+    }
+    std::string answer;
+    for (int i = 0; i < number_stacks; i++) {
+        answer += stacks[i].back();
+    }
+
+    std::cout << answer << std::endl;
     file.close();
 }
 
