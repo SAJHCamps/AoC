@@ -25,17 +25,20 @@ void run_2022_4_part_1(bool test) {
     std::string input;
     int score = 0;
     while (std::getline(file,input)) {
-        for (int i = 0; i < input.size()/2; i++) {
-            if (input.find(input[i], input.size()/2) != std::string::npos) {
-                if (input[i] >= char ('A') && input[i] <= char ('Z')) {
-                    score += char (input[i]) - char ('A') + 27;
-                    break;
-                }
-                else {
-                    score += char (input[i]) - char ('a') + 1;
-                    break;
-                }
-            }
+        int start = input.find_first_of("0123456789");
+        int end = input.find_first_not_of("0123456789", start);
+        int start_elf_1  = std::stoi(input.substr(start, end));
+        start = input.find_first_of("0123456789", end);
+        end = input.find_first_not_of("0123456789", start);
+        int end_elf_1  = std::stoi(input.substr(start, end));
+        start = input.find_first_of("0123456789", end);
+        end = input.find_first_not_of("0123456789", start);
+        int start_elf_2  = std::stoi(input.substr(start, end));
+        start = input.find_first_of("0123456789", end);
+        end = input.find_first_not_of("0123456789", start);
+        int end_elf_2  = std::stoi(input.substr(start, end));
+        if ((start_elf_1 <= start_elf_2 && end_elf_1 >= end_elf_2) || (start_elf_1 >= start_elf_2 && end_elf_1 <= end_elf_2) ) {
+            score++;
         }
     }
     std::cout << score << std::endl;
