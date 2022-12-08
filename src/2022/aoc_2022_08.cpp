@@ -24,49 +24,90 @@ void run_2022_8_part_1(bool test) {
         file.open("../src/2022/input/day_8.txt");
     }
     std::string input;
-    auto root = new struct file_tree;
-    root->name = "/";
-    root->parent = nullptr;
-    root->is_dir = true;
-    root->size = -1;
-    struct file_tree *current;
-    current = root;
+    std::vector<std::vector<int>> forest;
+    std::vector<std::vector<bool>> spotted;
+
     while (std::getline(file, input)) {
-        if (input[0] != '$') {
-            auto new_file = new struct file_tree;
-            new_file->parent = current;
-            new_file->children = {};
-            if (input[0] >= '0' && input[0] <= '9') {
-                int begin_name = input.find_first_not_of("0123456789");
-                new_file->size = std::stoi(input.substr(0, begin_name));
-                new_file->name = input.substr(begin_name + 1, std::string::npos);
-                new_file->is_dir = false;
-            } else {
-                new_file->size = -1;
-                new_file->name = input.substr(4, std::string::npos);
-                new_file->is_dir = true;
-            }
-            current->children.push_back(new_file);
-        } else {
-            if (input[2] == 'c') {
-                if (input[5] == '.') {
-                    current = current->parent;
-                } else if (input[5] == '/') {
-                    current = root;
-                } else {
-                    for (auto i: current->children) {
-                        if (i->is_dir && i->name == input.substr(5, std::string::npos)) {
-                            current = i;
-                            break;
-                        }
+        std::vector<int> current_line;
+        for (auto &ch: input) {
+            current_line.push_back(ch - '0');
+        }
+        forest.push_back(current_line);
+    }
+    for (int i = 0; i < forest.size(); i++) {
+        std::vector<bool> current_line;
+        for (int j = 0; j < forest.size(); j++) {
+            current_line.push_back(false);
+        }
+        spotted.push_back(current_line);
+    }
+
+    int score = 0;
+    for (int i = 0; i < forest.size(); i++) {
+        for (int j = 0; j < forest.size(); j++) {
+            if (!spotted[i][j]) {
+                bool blocked = false;
+                for (int k = j-1; k>=0; k-- ){
+                    if (forest[i][j] <= forest[i][k]){
+                        blocked = true;
                     }
+                }
+                if (!blocked) {
+                    score++;
+                    spotted[i][j] = true;
                 }
             }
         }
     }
-    set_sizes_file_tree(root);
-
-    std::cout << check_sizes_file_tree_part_1(root) << std::endl;
+    for (int i = 0; i < forest.size(); i++) {
+        for (int j = 0; j < forest.size(); j++) {
+            if (!spotted[j][i]) {
+                bool blocked = false;
+                for (int k = j-1; k>=0; k-- ){
+                    if (forest[j][i] <= forest[k][i]){
+                        blocked = true;
+                    }
+                }
+                if (!blocked) {
+                    score++;
+                    spotted[j][i] = true;
+                }
+            }
+        }
+    }
+    for (int i = 0; i < forest.size(); i++) {
+        for (int j = 0 ; j < forest.size(); j++) {
+            if (!spotted[i][j]) {
+                bool blocked = false;
+                for (int k = forest.size()-1; k>j; k-- ){
+                    if (forest[i][j] <= forest[i][k]){
+                        blocked = true;
+                    }
+                }
+                if (!blocked) {
+                    score++;
+                    spotted[i][j] = true;
+                }
+            }
+        }
+    }
+    for (int i = 0; i < forest.size(); i++) {
+        for (int j = 0 ; j < forest.size(); j++) {
+            if (!spotted[j][i]) {
+                bool blocked = false;
+                for (int k = forest.size()-1; k>j; k--){
+                    if (forest[j][i] <= forest[k][i]){
+                        blocked = true;
+                    }
+                }
+                if (!blocked) {
+                    score++;
+                    spotted[j][i] = true;
+                }
+            }
+        }
+    }
+    std::cout << score << std::endl;
     file.close();
 }
 
@@ -83,54 +124,28 @@ void run_2022_8_part_2(bool test) {
         file.open("../src/2022/input/day_8.txt");
     }
     std::string input;
-    auto root = new struct file_tree;
-    root->name = "/";
-    root->parent = nullptr;
-    root->is_dir = true;
-    root->size = -1;
-    struct file_tree *current;
-    current = root;
-    while (std::getline(file, input)) {
-        if (input[0] != '$') {
-            auto new_file = new struct file_tree;
-            new_file->parent = current;
-            new_file->children = {};
-            if (input[0] >= '0' && input[0] <= '9') {
-                int begin_name = input.find_first_not_of("0123456789");
-                new_file->size = std::stoi(input.substr(0, begin_name));
-                new_file->name = input.substr(begin_name + 1, std::string::npos);
-                new_file->is_dir = false;
-            } else {
-                new_file->size = -1;
-                new_file->name = input.substr(4, std::string::npos);
-                new_file->is_dir = true;
-            }
-            current->children.push_back(new_file);
-        } else {
-            if (input[2] == 'c') {
-                if (input[5] == '.') {
-                    current = current->parent;
-                } else if (input[5] == '/') {
-                    current = root;
-                } else {
-                    for (auto i: current->children) {
-                        if (i->is_dir && i->name == input.substr(5, std::string::npos)) {
-                            current = i;
-                            break;
-                        }
-                    }
-                }
-            }
+    std::getline(file, input);
+    int found = 0;
+    std::set<char> current;
+    for (int i = 0; i < 13; i++) {
+        current.insert(input[i]);
+    }
+    for (int i = 0; i < input.length()-14; i++) {
+        std::set<char> current;
+        for (int j = i; j < 14+i; j++) {
+            current.insert(input[j]);
+        }
+        if (current.size() == 14) {
+            found = i + 14;
+            break;
         }
     }
-    set_sizes_file_tree(root);
-
-    std::cout << check_sizes_file_tree_part_2(root,  root->size - 40000000) << std::endl;
+    std::cout << found << std::endl;
     file.close();
 }
 
 
-void aoc_2022_07(bool test,bool part_1, bool part_2) {
+void aoc_2022_08(bool test,bool part_1, bool part_2) {
     if (part_1) {
         run_2022_8_part_1(test);
     }
