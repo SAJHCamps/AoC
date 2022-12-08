@@ -124,23 +124,66 @@ void run_2022_8_part_2(bool test) {
         file.open("../src/2022/input/day_8.txt");
     }
     std::string input;
-    std::getline(file, input);
-    int found = 0;
-    std::set<char> current;
-    for (int i = 0; i < 13; i++) {
-        current.insert(input[i]);
-    }
-    for (int i = 0; i < input.length()-14; i++) {
-        std::set<char> current;
-        for (int j = i; j < 14+i; j++) {
-            current.insert(input[j]);
+    std::vector<std::vector<int>> forest;
+    std::vector<std::vector<bool>> spotted;
+
+    while (std::getline(file, input)) {
+        std::vector<int> current_line;
+        for (auto &ch: input) {
+            current_line.push_back(ch - '0');
         }
-        if (current.size() == 14) {
-            found = i + 14;
-            break;
+        forest.push_back(current_line);
+    }
+    for (int i = 0; i < forest.size(); i++) {
+        std::vector<bool> current_line;
+        for (int j = 0; j < forest.size(); j++) {
+            current_line.push_back(false);
+        }
+        spotted.push_back(current_line);
+    }
+
+    int score = 0;
+    for (int i = 0; i < forest.size(); i++) {
+        for (int j = 0; j < forest.size(); j++) {
+            int current_score = 1;
+            int visible_sum = 0;
+            for (int k = i+1; k < forest.size(); k++) {
+                visible_sum++;
+                if (forest[i][j] <= forest[k][j]){
+                    break;
+                }
+            }
+            current_score *= visible_sum;
+            visible_sum = 0;
+            for (int k = j+1; k < forest.size(); k++) {
+                visible_sum++;
+                if (forest[i][j] <= forest[i][k]){
+                    break;
+                }
+            }
+            current_score *= visible_sum;
+            visible_sum = 0;
+            for (int k = i-1; k >= 0; k--) {
+                visible_sum++;
+                if (forest[i][j] <= forest[k][j]){
+                    break;
+                }
+            }
+            current_score *= visible_sum;
+            visible_sum = 0;
+            for (int k = j-1; k >= 0; k--) {
+                visible_sum++;
+                if (forest[i][j] <= forest[i][k]){
+                    break;
+                }
+            }
+            current_score *= visible_sum;
+            if (current_score > score) {
+                score = current_score;
+            }
         }
     }
-    std::cout << found << std::endl;
+    std::cout << score << std::endl;
     file.close();
 }
 
