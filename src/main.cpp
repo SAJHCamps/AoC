@@ -20,6 +20,7 @@
 #include "2022/aoc_2022_05.hpp"
 #include "2022/aoc_2022_06.hpp"
 #include "2022/aoc_2022_07.hpp"
+#include "2022/aoc_2022_08.hpp"
 
 //update when starting new year to ease specification
 #define MAX_YEAR 2022
@@ -156,9 +157,9 @@ struct ProgramOptions {
                     case 7:
                         aoc_2022_07(test, part_1, part_2);
                         break;
-//                    case 8:
-//                        aoc_20xx_08(test, part_1, part_2);
-//                        break;
+                    case 8:
+                        aoc_2022_08(test, part_1, part_2);
+                        break;
 //                    case 9:
 //                        aoc_20xx_09(test, part_1, part_2);
 //                        break;
