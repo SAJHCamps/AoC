@@ -101,66 +101,71 @@ void run_2022_9_part_2(bool test) {
         file.open("../src/2022/input/day_9.txt");
     }
     std::string input;
-    std::vector<std::vector<int>> forest;
-    std::vector<std::vector<bool>> spotted;
+    int rope[20] = {0};
+    std::set<int> visited;
+    visited.insert(rope[18]+ 18000*rope[19]);
+    while (std::getline(file,input)) {
+        int repeats = std::stoi(input.substr(2,std::string::npos));
+        for (int i = 0; i< repeats; i++) {
+            switch (input[0]) {
+                case 'U':
+                    rope[0]++;
+                    break;
+                case 'D':
+                    rope[0]--;
+                    break;
+                case 'L':
+                    rope[1]--;
+                    break;
+                case 'R':
+                    rope[1]++;
+                    break;
+                default:
+                    break;
+            }
+            for (int j = 1; j <10; j++) {
+                if (rope[2*(j-1)] > rope[2*j] + 1) {
+                    rope[2*j]++;
+                    if (rope[2*(j-1)+1] > rope[2*j + 1]) {
+                        rope[2*j+1]++;
+                    }
+                    else if (rope[2*(j-1)+1] < rope[2*j + 1]) {
+                        rope[2*j+1]--;
+                    }
+                }
+                else if (rope[2*(j-1)] < rope[2*j] - 1) {
+                    rope[2*j]--;
+                    if (rope[2*(j-1)+1] > rope[2*j + 1]) {
+                        rope[2*j+1]++;
+                    }
+                    else if (rope[2*(j-1)+1] < rope[2*j + 1]) {
+                        rope[2*j+1]--;
+                    }
+                }
+                else if (rope[2*(j-1)+1] < rope[2*j+1] - 1) {
+                    rope[2*j+1]--;
+                    if (rope[2*(j-1)] > rope[2*j]) {
+                        rope[2*j]++;
+                    }
+                    else if (rope[2*(j-1)] < rope[2*j]) {
+                        rope[2*j]--;
+                    }
+                }
+                else if (rope[2*(j-1)+1] > rope[2*j+1] + 1) {
+                    rope[2*j+1]++;
+                    if (rope[2*(j-1)] > rope[2*j]) {
+                        rope[2*j]++;
+                    }
+                    else if (rope[2*(j-1)] < rope[2*j]) {
+                        rope[2*j]--;
+                    }
+                }
+            };
+            visited.insert(rope[18]+ 18000*rope[19]);
+        }
+    }
 
-    while (std::getline(file, input)) {
-        std::vector<int> current_line;
-        for (auto &ch: input) {
-            current_line.push_back(ch - '0');
-        }
-        forest.push_back(current_line);
-    }
-    for (int i = 0; i < forest.size(); i++) {
-        std::vector<bool> current_line;
-        for (int j = 0; j < forest.size(); j++) {
-            current_line.push_back(false);
-        }
-        spotted.push_back(current_line);
-    }
-
-    int score = 0;
-    for (int i = 0; i < forest.size(); i++) {
-        for (int j = 0; j < forest.size(); j++) {
-            int current_score = 1;
-            int visible_sum = 0;
-            for (int k = i+1; k < forest.size(); k++) {
-                visible_sum++;
-                if (forest[i][j] <= forest[k][j]){
-                    break;
-                }
-            }
-            current_score *= visible_sum;
-            visible_sum = 0;
-            for (int k = j+1; k < forest.size(); k++) {
-                visible_sum++;
-                if (forest[i][j] <= forest[i][k]){
-                    break;
-                }
-            }
-            current_score *= visible_sum;
-            visible_sum = 0;
-            for (int k = i-1; k >= 0; k--) {
-                visible_sum++;
-                if (forest[i][j] <= forest[k][j]){
-                    break;
-                }
-            }
-            current_score *= visible_sum;
-            visible_sum = 0;
-            for (int k = j-1; k >= 0; k--) {
-                visible_sum++;
-                if (forest[i][j] <= forest[i][k]){
-                    break;
-                }
-            }
-            current_score *= visible_sum;
-            if (current_score > score) {
-                score = current_score;
-            }
-        }
-    }
-    std::cout << score << std::endl;
+    std::cout << visited.size() << std::endl;
     file.close();
 }
 
