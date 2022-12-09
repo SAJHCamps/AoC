@@ -24,90 +24,67 @@ void run_2022_9_part_1(bool test) {
         file.open("../src/2022/input/day_9.txt");
     }
     std::string input;
-    std::vector<std::vector<int>> forest;
-    std::vector<std::vector<bool>> spotted;
+    int head[2] = {0,0};
+    int tail[2] = {0,0};
+    std::set<int> visited;
+    visited.insert(tail[0]+ 18000*tail[1]);
+    while (std::getline(file,input)) {
+        int repeats = std::stoi(input.substr(2,std::string::npos));
+        switch (input[0]) {
+            case 'U':
+                for (int i = 0; i < repeats; i++) {
+                    head[0]++;
+                    if (head[0] > tail[0]+1) {
+                        tail[0]++;
+                        if (head[1] != tail[1]) {
+                            tail[1] = head[1];
+                        }
+                    };
+                    visited.insert(tail[0]+ 18000*tail[1]);
+                }
+                break;
+            case 'D':
+                for (int i = 0; i < repeats; i++) {
+                    head[0]--;
+                    if (head[0] < tail[0]-1) {
+                        tail[0]--;
+                        if (head[1] != tail[1]) {
+                            tail[1] = head[1];
+                        }
+                    };
+                    visited.insert(tail[0]+ 18000*tail[1]);
+                }
+                break;
+            case 'L':
+                for (int i = 0; i < repeats; i++) {
+                    head[1]--;
+                    if (head[1] < tail[1]-1) {
+                        tail[1]--;
+                        if (head[0] != tail[0]) {
+                            tail[0] = head[0];
+                        }
+                    };
+                    visited.insert(tail[0]+ 18000*tail[1]);
+                }
+                break;
+            case 'R':
+                for (int i = 0; i < repeats; i++) {
+                    head[1]++;
+                    if (head[1] > tail[1]+1) {
+                        tail[1]++;
+                        if (head[0] != tail[0]) {
+                            tail[0] = head[0];
+                        }
+                    };
+                    visited.insert(tail[0]+ 18000*tail[1]);
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
-    while (std::getline(file, input)) {
-        std::vector<int> current_line;
-        for (auto &ch: input) {
-            current_line.push_back(ch - '0');
-        }
-        forest.push_back(current_line);
-    }
-    for (int i = 0; i < forest.size(); i++) {
-        std::vector<bool> current_line;
-        for (int j = 0; j < forest.size(); j++) {
-            current_line.push_back(false);
-        }
-        spotted.push_back(current_line);
-    }
-
-    int score = 0;
-    for (int i = 0; i < forest.size(); i++) {
-        for (int j = 0; j < forest.size(); j++) {
-            if (!spotted[i][j]) {
-                bool blocked = false;
-                for (int k = j-1; k>=0; k-- ){
-                    if (forest[i][j] <= forest[i][k]){
-                        blocked = true;
-                    }
-                }
-                if (!blocked) {
-                    score++;
-                    spotted[i][j] = true;
-                }
-            }
-        }
-    }
-    for (int i = 0; i < forest.size(); i++) {
-        for (int j = 0; j < forest.size(); j++) {
-            if (!spotted[j][i]) {
-                bool blocked = false;
-                for (int k = j-1; k>=0; k-- ){
-                    if (forest[j][i] <= forest[k][i]){
-                        blocked = true;
-                    }
-                }
-                if (!blocked) {
-                    score++;
-                    spotted[j][i] = true;
-                }
-            }
-        }
-    }
-    for (int i = 0; i < forest.size(); i++) {
-        for (int j = 0 ; j < forest.size(); j++) {
-            if (!spotted[i][j]) {
-                bool blocked = false;
-                for (int k = forest.size()-1; k>j; k-- ){
-                    if (forest[i][j] <= forest[i][k]){
-                        blocked = true;
-                    }
-                }
-                if (!blocked) {
-                    score++;
-                    spotted[i][j] = true;
-                }
-            }
-        }
-    }
-    for (int i = 0; i < forest.size(); i++) {
-        for (int j = 0 ; j < forest.size(); j++) {
-            if (!spotted[j][i]) {
-                bool blocked = false;
-                for (int k = forest.size()-1; k>j; k--){
-                    if (forest[j][i] <= forest[k][i]){
-                        blocked = true;
-                    }
-                }
-                if (!blocked) {
-                    score++;
-                    spotted[j][i] = true;
-                }
-            }
-        }
-    }
-    std::cout << score << std::endl;
+    std::cout << visited.size() << std::endl;
     file.close();
 }
 
