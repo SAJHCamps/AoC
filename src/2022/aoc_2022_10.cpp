@@ -61,78 +61,61 @@ void run_2022_10_part_2(bool test) {
     if (test) {
         file.open("../src/2022/test/test_10_2.txt");
         std::string answer;
-        std::getline(file,answer);
-        std::cout << "Test should give: " << answer << std::endl;
+        std::cout << "Test should give: " << std::endl;
+        for (int _ = 0; _ < 6; _++) {
+            std::getline(file,answer);
+            std::cout << answer << std::endl;
+        }
     }
     else {
         file.open("../src/2022/input/day_10.txt");
     }
     std::string input;
-    int rope[20] = {0};
-    std::set<int> visited;
-    visited.insert(rope[18]+ 18000*rope[19]);
-    while (std::getline(file,input)) {
-        int repeats = std::stoi(input.substr(2,std::string::npos));
-        for (int i = 0; i< repeats; i++) {
-            switch (input[0]) {
-                case 'U':
-                    rope[0]++;
-                    break;
-                case 'D':
-                    rope[0]--;
-                    break;
-                case 'L':
-                    rope[1]--;
-                    break;
-                case 'R':
-                    rope[1]++;
-                    break;
-                default:
-                    break;
-            }
-            for (int j = 1; j <10; j++) {
-                if (rope[2*(j-1)] > rope[2*j] + 1) {
-                    rope[2*j]++;
-                    if (rope[2*(j-1)+1] > rope[2*j + 1]) {
-                        rope[2*j+1]++;
-                    }
-                    else if (rope[2*(j-1)+1] < rope[2*j + 1]) {
-                        rope[2*j+1]--;
-                    }
+    int X = 1;
+    int cycles = 1;
+    while (std::getline(file, input)) {
+        switch (input[0]) {
+            case 'n':
+                if ((cycles % 40) - X <= 2 && (cycles % 40) - X >= 0) {
+                    std::cout << '#';
                 }
-                else if (rope[2*(j-1)] < rope[2*j] - 1) {
-                    rope[2*j]--;
-                    if (rope[2*(j-1)+1] > rope[2*j + 1]) {
-                        rope[2*j+1]++;
-                    }
-                    else if (rope[2*(j-1)+1] < rope[2*j + 1]) {
-                        rope[2*j+1]--;
-                    }
+                else {
+                    std::cout << '.';
                 }
-                else if (rope[2*(j-1)+1] < rope[2*j+1] - 1) {
-                    rope[2*j+1]--;
-                    if (rope[2*(j-1)] > rope[2*j]) {
-                        rope[2*j]++;
-                    }
-                    else if (rope[2*(j-1)] < rope[2*j]) {
-                        rope[2*j]--;
-                    }
+                if (cycles % 40 == 0) {
+                    std::cout << std::endl;
                 }
-                else if (rope[2*(j-1)+1] > rope[2*j+1] + 1) {
-                    rope[2*j+1]++;
-                    if (rope[2*(j-1)] > rope[2*j]) {
-                        rope[2*j]++;
-                    }
-                    else if (rope[2*(j-1)] < rope[2*j]) {
-                        rope[2*j]--;
-                    }
+                cycles++;
+                break;
+            case 'a':
+                if ((cycles % 40) - X <= 2 && (cycles % 40) - X >= 0) {
+                    std::cout << '#';
                 }
-            };
-            visited.insert(rope[18]+ 18000*rope[19]);
+                else {
+                    std::cout << '.';
+                }
+                if (cycles % 40 == 0) {
+                    std::cout << std::endl;
+                }
+                cycles++;
+
+                if ((cycles % 40) - X <= 2 && (cycles % 40) - X >= 0) {
+                    std::cout << '#';
+                }
+                else {
+                    std::cout << '.';
+                }
+                if (cycles % 40 == 0) {
+                    std::cout << std::endl;
+                }
+                cycles++;
+
+                X += std::stoi(input.substr(5, std::string::npos));
+                break;
+            default:
+                break;
         }
     }
-
-    std::cout << visited.size() << std::endl;
     file.close();
 }
 
