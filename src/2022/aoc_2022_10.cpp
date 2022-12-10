@@ -24,67 +24,34 @@ void run_2022_10_part_1(bool test) {
         file.open("../src/2022/input/day_10.txt");
     }
     std::string input;
-    int head[2] = {0,0};
-    int tail[2] = {0,0};
-    std::set<int> visited;
-    visited.insert(tail[0]+ 18000*tail[1]);
-    while (std::getline(file,input)) {
-        int repeats = std::stoi(input.substr(2,std::string::npos));
+    int score = 0;
+    int X = 1;
+    int cycles = 1;
+    while (std::getline(file, input)) {
         switch (input[0]) {
-            case 'U':
-                for (int i = 0; i < repeats; i++) {
-                    head[0]++;
-                    if (head[0] > tail[0]+1) {
-                        tail[0]++;
-                        if (head[1] != tail[1]) {
-                            tail[1] = head[1];
-                        }
-                    };
-                    visited.insert(tail[0]+ 18000*tail[1]);
+            case 'n':
+                if ((cycles - 20) % 40 == 0) {
+                    score += X*cycles;
                 }
+                cycles++;
                 break;
-            case 'D':
-                for (int i = 0; i < repeats; i++) {
-                    head[0]--;
-                    if (head[0] < tail[0]-1) {
-                        tail[0]--;
-                        if (head[1] != tail[1]) {
-                            tail[1] = head[1];
-                        }
-                    };
-                    visited.insert(tail[0]+ 18000*tail[1]);
+            case 'a':
+                if ((cycles - 20) % 40 == 0 && cycles >= 20) {
+                    score += X*cycles;
                 }
-                break;
-            case 'L':
-                for (int i = 0; i < repeats; i++) {
-                    head[1]--;
-                    if (head[1] < tail[1]-1) {
-                        tail[1]--;
-                        if (head[0] != tail[0]) {
-                            tail[0] = head[0];
-                        }
-                    };
-                    visited.insert(tail[0]+ 18000*tail[1]);
+                cycles ++;
+                if ((cycles - 20) % 40 == 0 && cycles >= 20) {
+                    score += X*cycles;
                 }
-                break;
-            case 'R':
-                for (int i = 0; i < repeats; i++) {
-                    head[1]++;
-                    if (head[1] > tail[1]+1) {
-                        tail[1]++;
-                        if (head[0] != tail[0]) {
-                            tail[0] = head[0];
-                        }
-                    };
-                    visited.insert(tail[0]+ 18000*tail[1]);
-                }
+                cycles ++;
+                X += std::stoi(input.substr(5, std::string::npos));
                 break;
             default:
                 break;
         }
     }
 
-    std::cout << visited.size() << std::endl;
+    std::cout << score << std::endl;
     file.close();
 }
 
