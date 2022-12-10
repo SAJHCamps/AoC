@@ -25,7 +25,8 @@ set(SRC_2022
         src/2022/aoc_2022_06.cpp src/2022/aoc_2022_06.hpp
         src/2022/aoc_2022_07.cpp src/2022/aoc_2022_07.hpp
         src/2022/aoc_2022_08.cpp src/2022/aoc_2022_08.hpp
-        src/2022/aoc_2022_09.cpp src/2022/aoc_2022_09.hpp)
+        src/2022/aoc_2022_09.cpp src/2022/aoc_2022_09.hpp
+        src/2022/aoc_2022_10.cpp src/2022/aoc_2022_10.hpp)
 
 #OpenSSl for 2015 day 4
 find_package(OpenSSL REQUIRED)
