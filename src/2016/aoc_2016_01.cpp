@@ -16,8 +16,38 @@ void run_2016_1_part_1(bool test) {
         file.open("../src/2016/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    std::cout << input << std::endl;
+    int x = 0;
+    int y = 0;
+    int direction = 0;
+    while (std::getline(file, input, ',')) {
+        if (input.find('R') != std::string::npos){
+            direction = (direction + 1) % 4;
+        }
+        else if (input.find('L') != std::string::npos){
+            direction = (direction + 3) % 4;
+        }
+        int start = input.find_first_of("0123456789");
+        int end = input.find_first_not_of("0123456789", start);
+        int amount  = std::stoi(input.substr(start, end));
+        switch (direction) {
+            case 0:
+                x += amount;
+                break;
+            case 1:
+                y += amount;
+                break;
+            case 2:
+                x -= amount;
+                break;
+            case 3:
+                y -= amount;
+                break;
+            default:
+                std::cout << "I have a bad feeling about this" << std::endl;
+        }
+    }
+
+    std::cout << abs(x) + abs(y) << std::endl;
     file.close();
 }
 
