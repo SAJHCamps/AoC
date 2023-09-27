@@ -1,2 +1,6 @@
-This line is reserved for the answer
-The input for the test starts from here
+14
++7
++7
+-2
+-7
+-4
