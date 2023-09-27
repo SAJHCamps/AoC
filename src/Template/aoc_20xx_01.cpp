@@ -23,9 +23,9 @@ void run_20XX_1_part_1(bool test) {
 
 void run_20XX_1_part_2(bool test) {
     std::ifstream file;
-    std::cout << "Part 1 day 1" << std::endl;
+    std::cout << "Part 2 day 1" << std::endl;
     if (test) {
-        file.open("../src/Template/test/test_1_1.txt");
+        file.open("../src/Template/test/test_1_2.txt");
         std::string answer;
         std::getline(file,answer);
         std::cout << "Test should give: " << answer << std::endl;
