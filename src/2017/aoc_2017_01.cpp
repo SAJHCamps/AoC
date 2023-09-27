@@ -42,7 +42,14 @@ void run_2017_1_part_2(bool test) {
     }
     std::string input;
     std::getline(file,input);
-    std::cout << input << std::endl;
+    int sum = 0;
+    int len = input.length();
+    for (int i = 0; i < len; i++) {
+        if (input[i] == input[(i+len/2)%len]){
+            sum += input[i] - '0';
+        }
+    }
+    std::cout << sum << std::endl;
     file.close();
 }
 
