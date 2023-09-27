@@ -16,8 +16,19 @@ void run_2018_1_part_1(bool test) {
         file.open("../src/2018/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    std::cout << input << std::endl;
+    int sum = 0;
+    while (std::getline(file,input)) {
+        if (input[0] == '+') {
+            sum += stoi(input.substr(1,std::string::npos));
+        }
+        else if (input[0] == '-') {
+            sum -= stoi(input.substr(1,std::string::npos));
+        }
+        else {
+            std::cout << "I have a bad feeling about this" << std::endl;
+        }
+    }
+    std::cout << sum << std::endl;
     file.close();
 }
 
