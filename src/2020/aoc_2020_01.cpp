@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <set>
 
 void run_2020_1_part_1(bool test) {
     std::ifstream file;
@@ -16,8 +17,19 @@ void run_2020_1_part_1(bool test) {
         file.open("../src/2020/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    std::cout << input << std::endl;
+    std::set<int> waiting;
+    int result;
+    while (std::getline(file,input)) {
+        int current = std::stoi(input);
+        if (waiting.find(2020- current) != waiting.end()) {
+            result = current * (2020 - current);
+            break;
+        }
+        else {
+            waiting.insert(current);
+        }
+    }
+    std::cout << result << std::endl;
     file.close();
 }
 

@@ -1,2 +1,7 @@
-This line is reserved for the answer
-The input for the test starts from here
+514579
+1721
+979
+366
+299
+675
+1456
