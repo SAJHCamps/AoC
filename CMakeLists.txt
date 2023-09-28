@@ -25,6 +25,9 @@ set(SRC_2017
 set(SRC_2018
         src/2018/aoc_2018_01.cpp src/2018/aoc_2018_01.hpp)
 
+set(SRC_2019
+        src/2019/aoc_2019_01.cpp src/2019/aoc_2019_01.hpp)
+
 set(SRC_2022
         src/2022/aoc_2022_01.cpp src/2022/aoc_2022_01.hpp
         src/2022/aoc_2022_02.cpp src/2022/aoc_2022_02.hpp
@@ -41,7 +44,7 @@ set(SRC_2022
 #OpenSSl for 2015 day 4
 find_package(OpenSSL REQUIRED)
 
-add_executable(${PROJECT_NAME} ${STANDARD_SRC} ${SRC_2015} ${SRC_2016} ${SRC_2017} ${SRC_2018} ${SRC_2022})
+add_executable(${PROJECT_NAME} ${STANDARD_SRC} ${SRC_2015} ${SRC_2016} ${SRC_2017} ${SRC_2018} ${SRC_2019} ${SRC_2022})
 
 #OpenSSL for 2015 day 4
 target_link_libraries(${PROJECT_NAME} OpenSSL::Crypto)
