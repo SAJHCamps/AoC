@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <climits>
+#include <queue>
 
 void run_2021_1_part_1(bool test) {
     std::ifstream file;
@@ -43,8 +44,24 @@ void run_2021_1_part_2(bool test) {
         file.open("../src/2021/input/day_1.txt");
     }
     std::string input;
+    int count = 0;
+    std::queue<int> q;
     std::getline(file,input);
-    std::cout << input << std::endl;
+    q.push(stoi(input));
+    std::getline(file,input);
+    q.push(stoi(input));
+    std::getline(file,input);
+    q.push(stoi(input));
+    while (std::getline(file,input)) {
+        int current = stoi(input);
+        int previous = q.front();
+        if (current > previous) {
+            count++;
+        }
+        q.push(current);
+        q.pop();
+    }
+    std::cout << count << std::endl;
     file.close();
 }
 
