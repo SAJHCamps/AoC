@@ -37,8 +37,15 @@ void run_2019_1_part_2(bool test) {
         file.open("../src/2019/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    std::cout << input << std::endl;
+    int sum = 0;
+    while (getline(file,input)) {
+        int unchecked = std::stoi(input)/3 - 2;
+        while (unchecked > 0) {
+            sum += unchecked;
+            unchecked = unchecked / 3 - 2;
+        }
+    }
+    std::cout << sum << std::endl;
     file.close();
 }
 
