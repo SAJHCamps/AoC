@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <climits>
 
 void run_2021_1_part_1(bool test) {
     std::ifstream file;
@@ -16,8 +17,16 @@ void run_2021_1_part_1(bool test) {
         file.open("../src/2021/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    std::cout << input << std::endl;
+    int count = 0;
+    int previous = INT_MAX;
+    while (std::getline(file,input)) {
+        int current = stoi(input);
+        if (current > previous) {
+            count++;
+        }
+        previous = current;
+    }
+    std::cout << count << std::endl;
     file.close();
 }
 
