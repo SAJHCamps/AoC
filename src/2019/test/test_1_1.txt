@@ -1,2 +1,5 @@
-This line is reserved for the answer
-The input for the test starts from here
+34241
+12
+14
+1969
+100756

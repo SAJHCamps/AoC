@@ -16,8 +16,11 @@ void run_2019_1_part_1(bool test) {
         file.open("../src/2019/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    std::cout << input << std::endl;
+    int sum = 0;
+    while (getline(file,input)) {
+        sum += std::stoi(input)/3 - 2;
+    }
+    std::cout << sum << std::endl;
     file.close();
 }
 
