@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <set>
+#include <vector>
 
 void run_2020_1_part_1(bool test) {
     std::ifstream file;
@@ -46,8 +47,25 @@ void run_2020_1_part_2(bool test) {
         file.open("../src/2020/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    std::cout << input << std::endl;
+    std::vector<int> numbers;
+    while (std::getline(file,input)) {
+        numbers.push_back(std::stoi(input));
+    }
+    int result;
+    for (int i = 0; i<numbers.size() ;i++) {
+        std::set<int> waiting;
+        for (int j = i+1; j<numbers.size() ;j++) {
+            if (waiting.find(2020- numbers[i] - numbers[j]) != waiting.end()) {
+                result = numbers[i] * numbers[j] * (2020 - numbers[i] - numbers[j]);
+                goto end;
+            }
+            else {
+                waiting.insert(numbers[j]);
+            }
+        }
+    }
+end:
+    std::cout << result << std::endl;
     file.close();
 }
 
