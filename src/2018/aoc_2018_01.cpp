@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <set>
+#include <climits>
 
 void run_2018_1_part_1(bool test) {
     std::ifstream file;
@@ -62,18 +63,39 @@ void run_2018_1_part_2(bool test) {
             std::cout << "I have a bad feeling about this" << std::endl;
         }
     }
-    int i = 0;
-    while (true) {
-        current += changes[i];
-        if (seen.find(current) != seen.end()) {
-            break;
-        }
-        else {
-            seen.insert(current);
-        }
-        i = (i+1) % changes.size();
+    int shift = 0;
+    for (int i: changes) {
+        shift += i;
     }
-    std::cout << current << std::endl;
+    std::vector<std::vector<int>> classes;
+    for (int i=0; i < shift; i++) {
+        std::vector<int> class_vec;
+        int sum = 0;
+        for (int change: changes) {
+            if (((sum%shift)+shift)%shift == i) {
+               class_vec.push_back(sum);
+            }
+            sum += change;
+        }
+        classes.push_back(class_vec);
+    }
+    int lowest_freq;
+    int min_shifts = INT_MAX;
+    current = 0;
+    for (int change: changes) {
+        int index = ((current%shift)+shift)%shift;
+        for (int other_freq: classes[index]) {
+            int shifts = (other_freq-current)/shift;
+            if (shifts < min_shifts && shifts > 0) {
+                min_shifts = shifts;
+                lowest_freq = other_freq;
+            }
+        }
+        current += change;
+    }
+
+
+    std::cout << lowest_freq << std::endl;
     file.close();
 }
 
