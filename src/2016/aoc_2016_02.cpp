@@ -17,38 +17,40 @@ void run_2016_2_part_1(bool test) {
         file.open("../src/2016/input/day_2.txt");
     }
     std::string input;
-    int x = 0;
-    int y = 0;
-    int direction = 0;
-    while (std::getline(file, input, ',')) {
-        if (input.find('R') != std::string::npos){
-            direction = (direction + 1) % 4;
+    int answer = 0;
+    int x = 1;
+    int y = 1;
+    while (std::getline(file, input)) {
+        for (char ch: input) {
+            switch (ch) {
+                case 'L':
+                    if (x > 0) {
+                        x--;
+                    }
+                    break;
+                case 'R':
+                    if (x < 2) {
+                        x++;
+                    }
+                    break;
+                case 'U':
+                    if (y > 0) {
+                        y--;
+                    }
+                    break;
+                case 'D':
+                    if (y < 2) {
+                        y++;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
-        else if (input.find('L') != std::string::npos){
-            direction = (direction + 3) % 4;
-        }
-        int start = input.find_first_of("0123456789");
-        int end = input.find_first_not_of("0123456789", start);
-        int amount  = std::stoi(input.substr(start, end));
-        switch (direction) {
-            case 0:
-                x += amount;
-                break;
-            case 1:
-                y += amount;
-                break;
-            case 2:
-                x -= amount;
-                break;
-            case 3:
-                y -= amount;
-                break;
-            default:
-                std::cout << "I have a bad feeling about this" << std::endl;
-        }
+        answer = 10*answer + x + 1 + 3*y;
     }
 
-    std::cout << abs(x) + abs(y) << std::endl;
+    std::cout << answer << std::endl;
     file.close();
 }
 
@@ -65,72 +67,40 @@ void run_2016_2_part_2(bool test) {
         file.open("../src/2016/input/day_2.txt");
     }
     std::string input;
-    int x = 0;
-    int y = 0;
-    int direction = 0;
-    std::set<std::pair<int,int>> visited;
-    visited.insert(std::make_pair(x,y));
-    while (std::getline(file, input, ',')) {
-        if (input.find('R') != std::string::npos){
-            direction = (direction + 1) % 4;
+    int answer = 0;
+    int x = 1;
+    int y = 1;
+    while (std::getline(file, input)) {
+        for (char ch: input) {
+            switch (ch) {
+                case 'L':
+                    if (x > 0) {
+                        x--;
+                    }
+                    break;
+                case 'R':
+                    if (x < 2) {
+                        x++;
+                    }
+                    break;
+                case 'U':
+                    if (y > 0) {
+                        y--;
+                    }
+                    break;
+                case 'D':
+                    if (y < 2) {
+                        y++;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
-        else if (input.find('L') != std::string::npos){
-            direction = (direction + 3) % 4;
-        }
-        int start = input.find_first_of("0123456789");
-        int end = input.find_first_not_of("0123456789", start);
-        int amount  = std::stoi(input.substr(start, end));
-        switch (direction) {
-            case 0:
-                for (int _ = 0; _ < amount; _++){
-                    x++;
-                    if (visited.find(std::make_pair(x,y)) != visited.end()) {
-                        goto found;
-                    }
-                    else {
-                        visited.insert(std::make_pair(x,y));
-                    }
-                }
-                break;
-            case 1:
-                for (int _ = 0; _ < amount; _++){
-                    y++;
-                    if (visited.find(std::make_pair(x,y)) != visited.end()) {
-                        goto found;
-                    }
-                    else {
-                        visited.insert(std::make_pair(x,y));
-                    }
-                }
-                break;
-            case 2:
-                for (int _ = 0; _ < amount; _++){
-                    x--;
-                    if (visited.find(std::make_pair(x,y)) != visited.end()) {
-                        goto found;
-                    }
-                    else {
-                        visited.insert(std::make_pair(x,y));
-                    }
-                }
-                break;
-            case 3:
-                for (int _ = 0; _ < amount; _++){
-                    y--;
-                    if (visited.find(std::make_pair(x,y)) != visited.end()) {
-                        goto found;
-                    }
-                    else {
-                        visited.insert(std::make_pair(x,y));
-                    }
-                }
-                break;
-            default:
-                std::cout << "I have a bad feeling about this" << std::endl;
-        }
+        answer = 10*answer + x + 1 + 3*y;
     }
-    found:
-    std::cout << abs(x) + abs(y) << std::endl;
+
+    std::cout << answer << std::endl;
     file.close();
 }
 
