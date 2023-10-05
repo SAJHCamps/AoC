@@ -5,6 +5,7 @@
 #include <vector>
 #include <set>
 #include <limits>
+#include <bits/stdc++.h>
 
 void run_2018_2_part_1(bool test) {
     std::ifstream file;
@@ -19,19 +20,31 @@ void run_2018_2_part_1(bool test) {
         file.open("../src/2018/input/day_2.txt");
     }
     std::string input;
-    int sum = 0;
+    int two_count = 0;
+    int three_count = 0;
     while (std::getline(file,input)) {
-        if (input[0] == '+') {
-            sum += stoi(input.substr(1,std::string::npos));
+        std::set<char> characters;
+        for (char ch: input) {
+            characters.insert(ch);
         }
-        else if (input[0] == '-') {
-            sum -= stoi(input.substr(1,std::string::npos));
+        bool two_count_current = false;
+        bool three_count_current = false;
+        for (char ch: characters) {
+            switch (std::count(input.begin(), input.end(), ch)) {
+                case 2:
+                    two_count_current = true;
+                    break;
+                case 3:
+                    three_count_current = true;
+                    break;
+                default:
+                    break;
+            }
         }
-        else {
-            std::cout << "I have a bad feeling about this" << std::endl;
-        }
+        two_count += two_count_current;
+        three_count += three_count_current;
     }
-    std::cout << sum << std::endl;
+    std::cout << two_count*three_count << std::endl;
     file.close();
 }
 
@@ -60,7 +73,7 @@ void run_2018_2_part_2(bool test) {
             changes.push_back(stoi(input));
         }
         else {
-            std::cout << "I have a bad feeling about this" << std::endl;
+//            std::cout << "I have a bad feeling about this" << std::endl;
         }
     }
     int shift = 0;
