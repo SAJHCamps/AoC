@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <climits>
+#include <limits>
 #include <algorithm>
 
 struct file_tree {
@@ -102,7 +102,7 @@ void run_2022_7_part_1(bool test) {
 
 int check_sizes_file_tree_part_2(struct file_tree* start, int to_free) {
     if (start->is_dir) {
-        int smallest = INT_MAX;
+        int smallest = std::numeric_limits<int>::max();
         if (start->size > to_free) {
             smallest = start->size;
         }
@@ -112,7 +112,7 @@ int check_sizes_file_tree_part_2(struct file_tree* start, int to_free) {
         return smallest;
     }
     else {
-        return INT_MAX;
+        return std::numeric_limits<int>::max();
     }
 }
 

@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 #include <set>
-#include <climits>
+#include <limits>
 
 void run_2018_1_part_1(bool test) {
     std::ifstream file;
@@ -80,7 +80,7 @@ void run_2018_1_part_2(bool test) {
         classes.push_back(class_vec);
     }
     int lowest_freq;
-    int min_shifts = INT_MAX;
+    int min_shifts = std::numeric_limits<int>::max();
     current = 0;
     for (int change: changes) {
         int index = ((current%shift)+shift)%shift;

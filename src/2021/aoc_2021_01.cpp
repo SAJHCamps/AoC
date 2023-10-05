@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <climits>
+#include <limits>
 #include <queue>
 
 void run_2021_1_part_1(bool test) {
@@ -19,7 +19,7 @@ void run_2021_1_part_1(bool test) {
     }
     std::string input;
     int count = 0;
-    int previous = INT_MAX;
+    int previous = std::numeric_limits<int>::max();
     while (std::getline(file,input)) {
         int current = stoi(input);
         if (current > previous) {
