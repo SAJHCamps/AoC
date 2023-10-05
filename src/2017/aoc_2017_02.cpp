@@ -4,6 +4,7 @@
 #include <string>
 #include <limits>
 #include <sstream>
+#include <vector>
 
 void run_2017_2_part_1(bool test) {
     std::ifstream file;
@@ -51,13 +52,23 @@ void run_2017_2_part_2(bool test) {
         file.open("../src/2017/input/day_2.txt");
     }
     std::string input;
-    std::getline(file,input);
     int sum = 0;
-    int len = input.length();
-    for (int i = 0; i < len; i++) {
-        if (input[i] == input[(i+len/2)%len]){
-            sum += input[i] - '0';
+    while (std::getline(file,input)) {
+        std::stringstream sinput(input);
+        int current;
+        std::vector<int> numbers;
+        while(sinput >> current) {
+            numbers.push_back(current);
         }
+        for (int i: numbers) {
+            for (int j: numbers) {
+                if (i%j == 0 && i != j) {
+                    sum += i/j;
+                    goto brk;
+                }
+            }
+        }
+        brk:
     }
     std::cout << sum << std::endl;
     file.close();
