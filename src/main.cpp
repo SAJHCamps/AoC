@@ -18,6 +18,7 @@
 
 //2017
 #include "2017/aoc_2017_01.hpp"
+#include "2017/aoc_2017_02.hpp"
 
 //2018
 #include "2018/aoc_2018_01.hpp"
@@ -242,9 +243,9 @@ struct ProgramOptions {
                     case 1:
                         aoc_2017_01(test, part_1, part_2);
                         break;
-//                    case 2:
-//                        aoc_2015_02(test, part_1, part_2);
-//                        break;
+                    case 2:
+                        aoc_2017_02(test, part_1, part_2);
+                        break;
 //                    case 3:
 //                        aoc_2015_03(test, part_1, part_2);
 //                        break;
