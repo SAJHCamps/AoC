@@ -2,9 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
 #include <set>
-#include <limits>
 #include <bits/stdc++.h>
 
 void run_2018_2_part_1(bool test) {
@@ -61,54 +59,26 @@ void run_2018_2_part_2(bool test) {
         file.open("../src/2018/input/day_2.txt");
     }
     std::string input;
-    int current = 0;
-    std::vector<int> changes;
-    std::set<int> seen;
-    seen.insert(current);
-    while (std::getline(file,input)) {
-        if (input[0] == '+') {
-            changes.push_back(stoi(input.substr(1,std::string::npos)));
-        }
-        else if (input[0] == '-') {
-            changes.push_back(stoi(input));
-        }
-        else {
-//            std::cout << "I have a bad feeling about this" << std::endl;
-        }
-    }
-    int shift = 0;
-    for (int i: changes) {
-        shift += i;
-    }
-    std::vector<std::vector<int>> classes;
-    for (int i=0; i < shift; i++) {
-        std::vector<int> class_vec;
-        int sum = 0;
-        for (int change: changes) {
-            if (((sum%shift)+shift)%shift == i) {
-               class_vec.push_back(sum);
-            }
-            sum += change;
-        }
-        classes.push_back(class_vec);
-    }
-    int lowest_freq;
-    int min_shifts = std::numeric_limits<int>::max();
-    current = 0;
-    for (int change: changes) {
-        int index = ((current%shift)+shift)%shift;
-        for (int other_freq: classes[index]) {
-            int shifts = (other_freq-current)/shift;
-            if (shifts < min_shifts && shifts > 0) {
-                min_shifts = shifts;
-                lowest_freq = other_freq;
+    std::string answer;
+    std::set<std::string> seen;
+    while (getline(file, input)) {
+        for (int i = 0; i < input.length(); i++) {
+            std::string first = input.substr(0, i);
+            std::string last =  input.substr(i+1, input.length()-i-1);
+            std::string current = first + last;
+            if (seen.find(current) != seen.end()) {
+                answer = current;
+                goto brk;
             }
         }
-        current += change;
+        for (int i = 0; i < input.length(); i++) {
+            std::string first = input.substr(0, i);
+            std::string last =  input.substr(i+1, input.length()-i-1);
+            seen.insert(first + last);
+        }
     }
-
-
-    std::cout << lowest_freq << std::endl;
+    brk:
+    std::cout << answer << std::endl;
     file.close();
 }
 
