@@ -1,15 +1,8 @@
-#include "aoc_2022_01.hpp"
+#include "aoc_2022_09.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <sstream>
-#include <limits>
-#include <unordered_set>
-#include <tuple>
-#include <openssl/md5.h>
 #include <bits/stdc++.h>
-#include <algorithm>
 
 void run_2022_9_part_1(bool test) {
     std::ifstream file;
@@ -39,7 +32,7 @@ void run_2022_9_part_1(bool test) {
                         if (head[1] != tail[1]) {
                             tail[1] = head[1];
                         }
-                    };
+                    }
                     visited.insert(tail[0]+ 18000*tail[1]);
                 }
                 break;
@@ -51,7 +44,7 @@ void run_2022_9_part_1(bool test) {
                         if (head[1] != tail[1]) {
                             tail[1] = head[1];
                         }
-                    };
+                    }
                     visited.insert(tail[0]+ 18000*tail[1]);
                 }
                 break;
@@ -63,7 +56,7 @@ void run_2022_9_part_1(bool test) {
                         if (head[0] != tail[0]) {
                             tail[0] = head[0];
                         }
-                    };
+                    }
                     visited.insert(tail[0]+ 18000*tail[1]);
                 }
                 break;
@@ -75,7 +68,7 @@ void run_2022_9_part_1(bool test) {
                         if (head[0] != tail[0]) {
                             tail[0] = head[0];
                         }
-                    };
+                    }
                     visited.insert(tail[0]+ 18000*tail[1]);
                 }
                 break;
@@ -160,7 +153,7 @@ void run_2022_9_part_2(bool test) {
                         rope[2*j]--;
                     }
                 }
-            };
+            }
             visited.insert(rope[18]+ 18000*rope[19]);
         }
     }

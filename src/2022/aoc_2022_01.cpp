@@ -3,11 +3,6 @@
 #include <fstream>
 #include <string>
 #include <vector>
-#include <sstream>
-#include <limits>
-#include <unordered_set>
-#include <tuple>
-#include <openssl/md5.h>
 #include <bits/stdc++.h>
 
 void run_2022_1_part_1(bool test) {

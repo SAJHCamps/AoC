@@ -1,13 +1,7 @@
-#include "aoc_2015_04.hpp"
+#include "aoc_2015_06.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <sstream>
-#include <limits>
-#include <unordered_set>
-#include <tuple>
-#include <openssl/md5.h>
 
 void run_2015_6_part_1(bool test) {
     std::ifstream file;

@@ -1,13 +1,7 @@
-#include "aoc_2022_01.hpp"
+#include "aoc_2022_06.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <sstream>
-#include <limits>
-#include <unordered_set>
-#include <tuple>
-#include <openssl/md5.h>
 #include <bits/stdc++.h>
 
 void run_2022_6_part_1(bool test) {
@@ -50,10 +44,6 @@ void run_2022_6_part_2(bool test) {
     std::string input;
     std::getline(file, input);
     int found = 0;
-    std::set<char> current;
-    for (int i = 0; i < 13; i++) {
-        current.insert(input[i]);
-    }
     for (int i = 0; i < input.length()-14; i++) {
         std::set<char> current;
         for (int j = i; j < 14+i; j++) {

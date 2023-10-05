@@ -1,13 +1,7 @@
-#include "aoc_2022_01.hpp"
+#include "aoc_2022_03.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <sstream>
-#include <limits>
-#include <unordered_set>
-#include <tuple>
-#include <openssl/md5.h>
 #include <bits/stdc++.h>
 
 void run_2022_3_part_1(bool test) {
@@ -56,21 +50,20 @@ void run_2022_3_part_2(bool test) {
     }
     std::string input;
     int score = 0;
-    int count = 0;
     std::set<char> total_intersection;
     while (std::getline(file,input)) {
         std::string second_line;
         std::string third_line;
         std::getline(file, second_line);
         std::getline(file, third_line);
-        for (auto ch: input) {
+        for (char ch: input) {
             if (second_line.find(ch) != std::string::npos && third_line.find(ch) != std::string::npos) {
-                if (ch >= char ('A') && ch <= char ('Z')) {
-                    score += ch - char ('A') + 27;
+                if (ch >= 'A' && ch <= 'Z') {
+                    score += ch - 'A' + 27;
                     break;
                 }
                 else {
-                    score += ch - char ('a') + 1;
+                    score += ch - 'a' + 1;
                     break;
                 }
             }

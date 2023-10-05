@@ -1,14 +1,7 @@
-#include "aoc_2022_01.hpp"
+#include "aoc_2022_04.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
-#include <sstream>
-#include <limits>
-#include <unordered_set>
-#include <tuple>
-#include <openssl/md5.h>
-#include <bits/stdc++.h>
 
 void run_2022_4_part_1(bool test) {
     std::ifstream file;

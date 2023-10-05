@@ -1,14 +1,9 @@
-#include "aoc_2022_01.hpp"
+#include "aoc_2022_07.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
-#include <sstream>
-#include <limits>
-#include <unordered_set>
-#include <tuple>
-#include <openssl/md5.h>
-#include <bits/stdc++.h>
+#include <climits>
 #include <algorithm>
 
 struct file_tree {
@@ -107,7 +102,7 @@ void run_2022_7_part_1(bool test) {
 
 int check_sizes_file_tree_part_2(struct file_tree* start, int to_free) {
     if (start->is_dir) {
-        int smallest = INFINITY;
+        int smallest = INT_MAX;
         if (start->size > to_free) {
             smallest = start->size;
         }
@@ -117,7 +112,7 @@ int check_sizes_file_tree_part_2(struct file_tree* start, int to_free) {
         return smallest;
     }
     else {
-        return INFINITY;
+        return INT_MAX;
     }
 }
 
