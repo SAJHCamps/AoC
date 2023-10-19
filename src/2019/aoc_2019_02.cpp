@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
 void run_2019_2_part_1(bool test) {
     std::ifstream file;
@@ -15,12 +16,44 @@ void run_2019_2_part_1(bool test) {
     else {
         file.open("../src/2019/input/day_2.txt");
     }
-    std::string input;
-    int sum = 0;
-    while (getline(file,input)) {
-        sum += std::stoi(input)/3 - 2;
+    std::vector<int> program;
+    std::string  input;
+    while (getline(file,input,  ',')) {
+        program.push_back(std::stoi(input));
     }
-    std::cout << sum << std::endl;
+    if (!test) {
+        program[1] = 12;
+        program[2] = 2;
+    }
+    int current = 0;
+    bool halt = false;
+    while (!halt) {
+        switch (program[current]) {
+            case 1: {
+                int index_store = program[current+3];
+                int index_add_1 = program[current+1];
+                int index_add_2 = program[current+2];
+                program[index_store] = program[index_add_1] + program[index_add_2];
+                current += 4;
+                break;
+            }
+            case 2: {
+                int index_store = program[current+3];
+                int index_add_1 = program[current+1];
+                int index_add_2 = program[current+2];
+                program[index_store] = program[index_add_1] * program[index_add_2];
+                current += 4;
+                break;
+            }
+            case 99: {
+                halt = true;
+                break;
+            }
+            default:
+                std::cout << "I have a bad feeling about this" << std::endl;
+        }
+    }
+    std::cout << program[0] << std::endl;
     file.close();
 }
 
