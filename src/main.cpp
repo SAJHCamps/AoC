@@ -26,6 +26,7 @@
 
 //2019
 #include "2019/aoc_2019_01.hpp"
+#include "2019/aoc_2019_02.hpp"
 
 //2020
 #include "2020/aoc_2020_01.hpp"
@@ -406,9 +407,9 @@ struct ProgramOptions {
                     case 1:
                         aoc_2019_01(test, part_1, part_2);
                         break;
-//                    case 2:
-//                        aoc_2015_02(test, part_1, part_2);
-//                        break;
+                    case 2:
+                        aoc_2019_02(test, part_1, part_2);
+                        break;
 //                    case 3:
 //                        aoc_2015_03(test, part_1, part_2);
 //                        break;
