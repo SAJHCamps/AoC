@@ -61,24 +61,58 @@ void run_2019_2_part_2(bool test) {
     std::ifstream file;
     std::cout << "Part 2 day 1" << std::endl;
     if (test) {
-        file.open("../src/2019/test/test_2_2.txt");
-        std::string answer;
-        std::getline(file,answer);
-        std::cout << "Test should give: " << answer << std::endl;
+        std::cout << "Test sadly not possible " << std::endl;
+        return;
     }
     else {
         file.open("../src/2019/input/day_2.txt");
     }
-    std::string input;
-    int sum = 0;
-    while (getline(file,input)) {
-        int unchecked = std::stoi(input)/3 - 2;
-        while (unchecked > 0) {
-            sum += unchecked;
-            unchecked = unchecked / 3 - 2;
+    std::vector<int> program;
+    std::string  input;
+    while (getline(file,input,  ',')) {
+        program.push_back(std::stoi(input));
+    }
+
+    for (int i = 0; i < 100; i++) {
+        for (int j = 0; j < 100; j++) {
+            std::vector<int> memory  = program;
+            memory[1] = i;
+            memory[2] = j;
+            int current = 0;
+            bool halt = false;
+            while (!halt) {
+                switch (memory[current]) {
+                    case 1: {
+                        int index_store = memory[current + 3];
+                        int index_add_1 = memory[current + 1];
+                        int index_add_2 = memory[current + 2];
+                        memory[index_store] = memory[index_add_1] + memory[index_add_2];
+                        current += 4;
+                        break;
+                    }
+                    case 2: {
+                        int index_store = memory[current + 3];
+                        int index_add_1 = memory[current + 1];
+                        int index_add_2 = memory[current + 2];
+                        memory[index_store] = memory[index_add_1] * memory[index_add_2];
+                        current += 4;
+                        break;
+                    }
+                    case 99: {
+                        halt = true;
+                        break;
+                    }
+                    default:
+                        std::cout << "I have a bad feeling about this" << std::endl;
+                }
+            }
+            if (memory[0]== 19690720) {
+                std::cout << i*100 + j << std::endl;
+                goto done;
+            }
         }
     }
-    std::cout << sum << std::endl;
+    done:
     file.close();
 }
 
