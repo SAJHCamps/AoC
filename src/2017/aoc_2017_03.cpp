@@ -2,9 +2,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <limits>
 #include <sstream>
 #include <vector>
+#include <cmath>
 
 void run_2017_3_part_1(bool test) {
     std::ifstream file;
@@ -18,24 +18,14 @@ void run_2017_3_part_1(bool test) {
     else {
         file.open("../src/2017/input/day_3.txt");
     }
-    std::string input;
-    int sum = 0;
-    while (std::getline(file,input)) {
-        std::stringstream sinput(input);
-        int current;
-        int max = 0;
-        int min = std::numeric_limits<int>::max();
-        while(sinput >> current) {
-            if (current > max) {
-                max  = current;
-            }
-            if (current < min) {
-                min = current;
-            }
-        }
-        sum += max - min;
+    int target;
+    file >> target;
+    int rank = 1;
+    while (rank*rank < target) {
+        rank += 2;
     }
-    std::cout << sum << std::endl;
+    int steps = (rank*rank - target)%(rank -1);
+    std::cout << rank/2 + std::abs(steps - rank/2)<< std::endl;
     file.close();
 }
 
