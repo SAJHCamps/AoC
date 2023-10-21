@@ -2,9 +2,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <sstream>
-#include <vector>
 #include <cmath>
+#include <map>
+#include <utility>
 
 void run_2017_3_part_1(bool test) {
     std::ifstream file;
@@ -41,26 +41,60 @@ void run_2017_3_part_2(bool test) {
     else {
         file.open("../src/2017/input/day_3.txt");
     }
-    std::string input;
-    int sum = 0;
-    while (std::getline(file,input)) {
-        std::stringstream sinput(input);
-        int current;
-        std::vector<int> numbers;
-        while(sinput >> current) {
-            numbers.push_back(current);
-        }
-        for (int i: numbers) {
-            for (int j: numbers) {
-                if (i%j == 0 && i != j) {
-                    sum += i/j;
-                    goto brk;
-                }
+    int target;
+    file >> target;
+    int answer;
+    int rank = 1;
+    std::map<std::pair<int,int>, int> space  = {{{0, 0}, 1}};
+    while (true) {
+        for (int i = -rank +1; i <= rank; i++) {
+            int result =    space[{rank-1, i-1}] + space[{rank, i-1}] + space[{rank+1, i-1}] +
+                            space[{rank-1, i}]   + space[{rank, i}]   + space[{rank+1, i}] +
+                            space[{rank-1, i+1}] + space[{rank, i+1}] + space[{rank+1, i+1}];
+            if (result > target){
+                answer = result;
+                goto stop;
             }
+            else
+                space[{rank, i}] = result;
         }
-        brk:
+        for (int i = rank -1; i >= -rank; i--) {
+            int result =    space[{i-1, rank-1}] + space[{i, rank-1}] + space[{i+1, rank-1}] +
+                            space[{i-1, rank}]   + space[{i, rank}]   + space[{i+1, rank}] +
+                            space[{i-1, rank+1}] + space[{i, rank+1}] + space[{i+1, rank+1}];
+            if (result > target){
+                answer = result;
+                goto stop;
+            }
+            else
+                space[{i, rank}] = result;
+        }
+        for (int i = rank -1; i >= -rank; i--) {
+            int result =    space[{-rank-1, i-1}] + space[{-rank, i-1}] + space[{-rank+1, i-1}] +
+                            space[{-rank-1, i}]   + space[{-rank, i}]   + space[{-rank+1, i}] +
+                            space[{-rank-1, i+1}] + space[{-rank, i+1}] + space[{-rank+1, i+1}];
+            if (result > target){
+                answer = result;
+                goto stop;
+            }
+            else
+                space[{-rank, i}] = result;
+        }
+        for (int i = -rank +1; i <= rank; i++) {
+            int result =    space[{i-1, -rank-1}] + space[{i, -rank-1}] + space[{i+1, -rank-1}] +
+                            space[{i-1, -rank}]   + space[{i, -rank}]   + space[{i+1, -rank}] +
+                            space[{i-1, -rank+1}] + space[{i, -rank+1}] + space[{i+1, -rank+1}];
+            if (result > target){
+                answer = result;
+                goto stop;
+            }
+            else
+                space[{i, -rank}] = result;
+        }
+        rank++;
     }
-    std::cout << sum << std::endl;
+stop:
+    std::cout << answer << std::endl;
     file.close();
 }
 
