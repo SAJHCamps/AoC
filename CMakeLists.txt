@@ -23,7 +23,8 @@ set(SRC_2016
 
 set(SRC_2017
         src/2017/aoc_2017_01.cpp src/2017/aoc_2017_01.hpp
-        src/2017/aoc_2017_02.cpp src/2017/aoc_2017_02.hpp)
+        src/2017/aoc_2017_02.cpp src/2017/aoc_2017_02.hpp
+        src/2017/aoc_2017_03.cpp src/2017/aoc_2017_03.hpp)
 
 set(SRC_2018
         src/2018/aoc_2018_01.cpp src/2018/aoc_2018_01.hpp
