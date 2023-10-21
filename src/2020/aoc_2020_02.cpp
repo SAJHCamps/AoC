@@ -53,25 +53,20 @@ void run_2020_2_part_2(bool test) {
         file.open("../src/2020/input/day_2.txt");
     }
     std::string input;
-    std::vector<int> numbers;
-    while (std::getline(file,input)) {
-        numbers.push_back(std::stoi(input));
+    int correct = 0;
+    while (std::getline(file, input)) {
+        int sum = 0;
+        int start = 0;
+        int end =  input.find_first_not_of("0123456789");
+        int min = std::stoi(input.substr(start, end));
+        start = input.find_first_of("0123456789", end);
+        end =  input.find_first_not_of("0123456789", start);
+        int max = std::stoi(input.substr(start, end));
+        char check = input[end + 1];
+        if ((input[end + min + 3] != check) == (input[end + max + 3] == check))
+            correct++;
     }
-    int result;
-    for (int i = 0; i<numbers.size() ;i++) {
-        std::set<int> waiting;
-        for (int j = i+1; j<numbers.size() ;j++) {
-            if (waiting.find(2020- numbers[i] - numbers[j]) != waiting.end()) {
-                result = numbers[i] * numbers[j] * (2020 - numbers[i] - numbers[j]);
-                goto end;
-            }
-            else {
-                waiting.insert(numbers[j]);
-            }
-        }
-    }
-end:
-    std::cout << result << std::endl;
+    std::cout << correct << std::endl;
     file.close();
 }
 
