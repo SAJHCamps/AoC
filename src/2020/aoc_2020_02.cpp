@@ -63,7 +63,7 @@ void run_2020_2_part_2(bool test) {
         end =  input.find_first_not_of("0123456789", start);
         int max = std::stoi(input.substr(start, end));
         char check = input[end + 1];
-        if ((input[end + min + 3] != check) == (input[end + max + 3] == check))
+        if (input[end + min + 3] == check ^ input[end + max + 3] == check)
             correct++;
     }
     std::cout << correct << std::endl;
