@@ -18,19 +18,25 @@ void run_2020_2_part_1(bool test) {
         file.open("../src/2020/input/day_2.txt");
     }
     std::string input;
-    std::set<int> waiting;
-    int result;
-    while (std::getline(file,input)) {
-        int current = std::stoi(input);
-        if (waiting.find(2020- current) != waiting.end()) {
-            result = current * (2020 - current);
-            break;
+    int correct = 0;
+    while (std::getline(file, input)) {
+        int sum = 0;
+        int start = 0;
+        int end =  input.find_first_not_of("0123456789");
+        int min = std::stoi(input.substr(start, end));
+        start = input.find_first_of("0123456789", end);
+        end =  input.find_first_not_of("0123456789", start);
+        int max = std::stoi(input.substr(start, end));
+        char check = input[end + 1];
+        for (char ch: input.substr(end+4, std::string::npos)) {
+            if (ch == check)
+                sum++;
         }
-        else {
-            waiting.insert(current);
-        }
+
+        if (min <= sum && sum <= max)
+            correct++;
     }
-    std::cout << result << std::endl;
+    std::cout << correct << std::endl;
     file.close();
 }
 
