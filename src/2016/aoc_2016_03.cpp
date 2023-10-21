@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <bits/stdc++.h>
 
 void run_2016_3_part_1(bool test) {
     std::ifstream file;
@@ -18,38 +19,12 @@ void run_2016_3_part_1(bool test) {
     }
     std::string input;
     int answer = 0;
-    int x = 1;
-    int y = 1;
-    while (std::getline(file, input)) {
-        for (char ch: input) {
-            switch (ch) {
-                case 'L':
-                    if (x > 0) {
-                        x--;
-                    }
-                    break;
-                case 'R':
-                    if (x < 2) {
-                        x++;
-                    }
-                    break;
-                case 'U':
-                    if (y > 0) {
-                        y--;
-                    }
-                    break;
-                case 'D':
-                    if (y < 2) {
-                        y++;
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
-        answer = 10*answer + x + 1 + 3*y;
+    int points[3];
+    while (file >> points[0] >> points[1] >> points[2]) {
+        std::sort(std::begin(points), std::end(points));
+        if (points[2] < points[1] + points[0])
+            answer++;
     }
-
     std::cout << answer << std::endl;
     file.close();
 }
