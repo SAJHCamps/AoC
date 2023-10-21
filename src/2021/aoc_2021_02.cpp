@@ -53,24 +53,27 @@ void run_2021_2_part_2(bool test) {
         file.open("../src/2021/input/day_2.txt");
     }
     std::string input;
-    int count = 0;
-    std::queue<int> q;
-    std::getline(file,input);
-    q.push(stoi(input));
-    std::getline(file,input);
-    q.push(stoi(input));
-    std::getline(file,input);
-    q.push(stoi(input));
+    int angle = 0;
+    int depth = 0;
+    int dist = 0;
     while (std::getline(file,input)) {
-        int current = stoi(input);
-        int previous = q.front();
-        if (current > previous) {
-            count++;
+        int amount = std::stoi(input.substr(input.find_first_of("0123456789")));
+        switch (input[0]) {
+            case 'f':
+                dist += amount;
+                depth += angle*amount;
+                break;
+            case 'd':
+                angle += amount;
+                break;
+            case 'u':
+                angle -= amount;
+                break;
+            default:
+                break;
         }
-        q.push(current);
-        q.pop();
     }
-    std::cout << count << std::endl;
+    std::cout << depth * dist << std::endl;
     file.close();
 }
 
