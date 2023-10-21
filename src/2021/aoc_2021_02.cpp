@@ -18,16 +18,25 @@ void run_2021_2_part_1(bool test) {
         file.open("../src/2021/input/day_2.txt");
     }
     std::string input;
-    int count = 0;
-    int previous = std::numeric_limits<int>::max();
+    int depth = 0;
+    int dist = 0;
     while (std::getline(file,input)) {
-        int current = stoi(input);
-        if (current > previous) {
-            count++;
+        int amount = std::stoi(input.substr(input.find_first_of("0123456789")));
+        switch (input[0]) {
+            case 'f':
+                dist += amount;
+                break;
+            case 'd':
+                depth += amount;
+                break;
+            case 'u':
+                depth -= amount;
+                break;
+            default:
+                break;
         }
-        previous = current;
     }
-    std::cout << count << std::endl;
+    std::cout << depth * dist << std::endl;
     file.close();
 }
 
