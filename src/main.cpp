@@ -34,6 +34,7 @@
 
 //2021
 #include "2021/aoc_2021_01.hpp"
+#include "2021/aoc_2021_02.hpp"
 
 //2022
 #include "2022/aoc_2022_01.hpp"
@@ -570,9 +571,9 @@ struct ProgramOptions {
                     case 1:
                         aoc_2021_01(test, part_1, part_2);
                         break;
-//                    case 2:
-//                        aoc_2015_02(test, part_1, part_2);
-//                        break;
+                    case 2:
+                        aoc_2021_02(test, part_1, part_2);
+                        break;
 //                    case 3:
 //                        aoc_2015_03(test, part_1, part_2);
 //                        break;
