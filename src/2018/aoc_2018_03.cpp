@@ -4,6 +4,7 @@
 #include <string>
 #include <set>
 #include <bits/stdc++.h>
+#include <map>
 
 void run_2018_3_part_1(bool test) {
     std::ifstream file;
@@ -18,31 +19,24 @@ void run_2018_3_part_1(bool test) {
         file.open("../src/2018/input/day_3.txt");
     }
     std::string input;
-    int two_count = 0;
-    int three_count = 0;
-    while (std::getline(file,input)) {
-        std::set<char> characters;
-        for (char ch: input) {
-            characters.insert(ch);
-        }
-        bool two_count_current = false;
-        bool three_count_current = false;
-        for (char ch: characters) {
-            switch (std::count(input.begin(), input.end(), ch)) {
-                case 2:
-                    two_count_current = true;
-                    break;
-                case 3:
-                    three_count_current = true;
-                    break;
-                default:
-                    break;
+    std::regex regex("#[0-9]* @ ([0-9]*),([0-9]*): ([0-9]*)x([0-9]*)");
+    std::smatch match;
+    std::map<int,int> field;
+    while(getline(file, input)) {
+        if (std::regex_search(input, match, regex)) {
+            for (int i = std::stoi(match[1].str()); i < std::stoi(match[1].str()) + std::stoi(match[3].str()); i++) {
+                for (int j = std::stoi(match[2].str()); j < std::stoi(match[2].str()) + std::stoi(match[4].str()); j++) {
+                    field[i+j*1000] = field[i+j*1000] + 1;
+                }
             }
         }
-        two_count += two_count_current;
-        three_count += three_count_current;
     }
-    std::cout << two_count*three_count << std::endl;
+    int score = 0;
+    for (auto i : field) {
+        if (i.second >= 2)
+            score++;
+    }
+    std::cout << score << std::endl;
     file.close();
 }
 
