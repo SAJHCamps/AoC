@@ -17,7 +17,6 @@ void run_2016_3_part_1(bool test) {
     else {
         file.open("../src/2016/input/day_3.txt");
     }
-    std::string input;
     int answer = 0;
     int points[3];
     while (file >> points[0] >> points[1] >> points[2]) {
@@ -41,55 +40,15 @@ void run_2016_3_part_2(bool test) {
     else {
         file.open("../src/2016/input/day_3.txt");
     }
-    std::string input;
-    std::string answer;
-    int x = 0;
-    int y = 0;
-    std::map<std::pair<int,int>, char> keypad = {
-            {{2,-2}, '1'},
-            {{1,-1}, '2'},
-            {{2,-1}, '3'},
-            {{3,-1}, '4'},
-            {{0,0}, '5'},
-            {{1,0}, '6'},
-            {{2,0}, '7'},
-            {{3,0}, '8'},
-            {{4,0}, '9'},
-            {{1,1}, 'A'},
-            {{2,1}, 'B'},
-            {{3,1}, 'C'},
-            {{2,2}, 'D'}
-    };
-    while (std::getline(file, input)) {
-        for (char ch: input) {
-            switch (ch) {
-                case 'L':
-                    if (x > abs(y)) {
-                        x--;
-                    }
-                    break;
-                case 'R':
-                    if (x < 4-abs(y)) {
-                        x++;
-                    }
-                    break;
-                case 'U':
-                    if (y > -std::min(x, 4-x)) {
-                        y--;
-                    }
-                    break;
-                case 'D':
-                    if (y < std::min(x,4-x)) {
-                        y++;
-                    }
-                    break;
-                default:
-                    break;
-            }
+    int answer = 0;
+    int points[3][3];
+    while (file >> points[0][0] >> points[1][0] >> points[2][0] >> points[0][1] >> points[1][1] >> points[2][1] >> points[0][2] >> points[1][2] >> points[2][2]) {
+        for (auto & point : points) {
+            std::sort(std::begin(point), std::end(point));
+            if (point[2] < point[1] + point[0])
+                answer++;
         }
-        answer.push_back(keypad[{x,y}]);
     }
-
     std::cout << answer << std::endl;
     file.close();
 }
