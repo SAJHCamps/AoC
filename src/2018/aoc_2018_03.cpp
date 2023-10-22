@@ -4,6 +4,7 @@
 #include <string>
 #include <bits/stdc++.h>
 #include <set>
+#include <sstream>
 
 void run_2018_3_part_1(bool test) {
     std::ifstream file;
@@ -18,37 +19,33 @@ void run_2018_3_part_1(bool test) {
         file.open("../src/2018/input/day_3.txt");
     }
     std::string input;
-    std::regex regex("#([0-9]*) @ ([0-9]*),([0-9]*): ([0-9]*)x([0-9]*)");
-    std::smatch match;
     std::vector<std::vector<int>> entries;
     while(getline(file, input)) {
-        if (std::regex_search(input, match, regex)) {
-            std::vector<int> square = {std::stoi(match[1].str()), std::stoi(match[2].str()), std::stoi(match[3].str()),
-                                       std::stoi(match[4].str()), std::stoi(match[5].str())};
-            entries.push_back(square);
-        }
+        std::stringstream ss(input);
+        std::vector<int> square(5,0);
+        char ch;
+        ss >> ch >> square[0] >> ch >> square[1] >> ch >> square[2] >> ch >> square[3] >> ch >> square[4] >> ch >> square[5];
+        entries.push_back(square);
     }
-    int id;
-    std::set<int> seen;
+    std::vector<int> seen(1000000, 0);
 
     for (int i = 0; i < entries.size(); i++) {
-        for (int j = i+1; j < entries.size(); j++) {
-            int start_match_x = entries[i][1];
-            int start_check_x = entries[j][1];
-            int stop_match_x = entries[i][3] + entries[i][1];
-            int stop_check_x = entries[j][3] + entries[j][1];
-            int start_match_y = entries[i][2];
-            int start_check_y = entries[j][2];
-            int stop_match_y = entries[i][4] + entries[i][2];
-            int stop_check_y = entries[j][4] + entries[j][2];
-            for (int x = std::max(start_match_x, start_check_x); x < std::min(stop_match_x, stop_check_x); x++) {
-                for (int y = std::max(start_match_y, start_check_y); y < std::min(stop_match_y, stop_check_y); y++) {
-                    seen.insert(x + 1000* y);
-                }
+        int start_match_x = entries[i][1];
+        int stop_match_x = entries[i][3] + entries[i][1];
+        int start_match_y = entries[i][2];
+        int stop_match_y = entries[i][4] + entries[i][2];
+        for (int x = start_match_x; x < stop_match_x; x++) {
+            for (int y = start_match_y; y < stop_match_y; y++) {
+                seen[x + 1000* y]++;
             }
         }
     }
-    std::cout << seen.size() << std::endl;
+    int score =0;
+    for (int i: seen) {
+        if (i > 1)
+            score++;
+    }
+    std::cout << score << std::endl;
     file.close();
 }
 
@@ -65,15 +62,13 @@ void run_2018_3_part_2(bool test) {
         file.open("../src/2018/input/day_3.txt");
     }
     std::string input;
-    std::regex regex("#([0-9]*) @ ([0-9]*),([0-9]*): ([0-9]*)x([0-9]*)");
-    std::smatch match;
     std::vector<std::vector<int>> entries;
     while(getline(file, input)) {
-        if (std::regex_search(input, match, regex)) {
-            std::vector<int> square = {std::stoi(match[1].str()), std::stoi(match[2].str()), std::stoi(match[3].str()),
-                             std::stoi(match[4].str()), std::stoi(match[5].str())};
-            entries.push_back(square);
-        }
+        std::stringstream ss(input);
+        std::vector<int> square(5,0);
+        char ch;
+        ss >> ch >> square[0] >> ch >> square[1] >> ch >> square[2] >> ch >> square[3] >> ch >> square[4] >> ch >> square[5];
+        entries.push_back(square);
     }
     int id;
     for (auto square :entries) {
