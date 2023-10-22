@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <bits/stdc++.h>
-#include <map>
+#include <set>
 
 void run_2018_3_part_1(bool test) {
     std::ifstream file;
@@ -18,24 +18,37 @@ void run_2018_3_part_1(bool test) {
         file.open("../src/2018/input/day_3.txt");
     }
     std::string input;
-    std::regex regex("#[0-9]* @ ([0-9]*),([0-9]*): ([0-9]*)x([0-9]*)");
+    std::regex regex("#([0-9]*) @ ([0-9]*),([0-9]*): ([0-9]*)x([0-9]*)");
     std::smatch match;
-    std::map<int,int> field;
+    std::vector<std::vector<int>> entries;
     while(getline(file, input)) {
         if (std::regex_search(input, match, regex)) {
-            for (int i = std::stoi(match[1].str()); i < std::stoi(match[1].str()) + std::stoi(match[3].str()); i++) {
-                for (int j = std::stoi(match[2].str()); j < std::stoi(match[2].str()) + std::stoi(match[4].str()); j++) {
-                    field[i+j*1000] = field[i+j*1000] + 1;
+            std::vector<int> square = {std::stoi(match[1].str()), std::stoi(match[2].str()), std::stoi(match[3].str()),
+                                       std::stoi(match[4].str()), std::stoi(match[5].str())};
+            entries.push_back(square);
+        }
+    }
+    int id;
+    std::set<int> seen;
+
+    for (int i = 0; i < entries.size(); i++) {
+        for (int j = i+1; j < entries.size(); j++) {
+            int start_match_x = entries[i][1];
+            int start_check_x = entries[j][1];
+            int stop_match_x = entries[i][3] + entries[i][1];
+            int stop_check_x = entries[j][3] + entries[j][1];
+            int start_match_y = entries[i][2];
+            int start_check_y = entries[j][2];
+            int stop_match_y = entries[i][4] + entries[i][2];
+            int stop_check_y = entries[j][4] + entries[j][2];
+            for (int x = std::max(start_match_x, start_check_x); x < std::min(stop_match_x, stop_check_x); x++) {
+                for (int y = std::max(start_match_y, start_check_y); y < std::min(stop_match_y, stop_check_y); y++) {
+                    seen.insert(x + 1000* y);
                 }
             }
         }
     }
-    int score = 0;
-    for (auto i : field) {
-        if (i.second >= 2)
-            score++;
-    }
-    std::cout << score << std::endl;
+    std::cout << seen.size() << std::endl;
     file.close();
 }
 
