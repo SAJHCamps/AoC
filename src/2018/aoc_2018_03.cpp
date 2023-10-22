@@ -2,7 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <set>
 #include <bits/stdc++.h>
 #include <map>
 
@@ -53,26 +52,43 @@ void run_2018_3_part_2(bool test) {
         file.open("../src/2018/input/day_3.txt");
     }
     std::string input;
-    std::string answer;
-    std::set<std::string> seen;
-    while (getline(file, input)) {
-        for (int i = 0; i < input.length(); i++) {
-            std::string first = input.substr(0, i);
-            std::string last =  input.substr(i+1, input.length()-i-1);
-            std::string current = first + last;
-            if (seen.find(current) != seen.end()) {
-                answer = current;
-                goto brk;
-            }
-        }
-        for (int i = 0; i < input.length(); i++) {
-            std::string first = input.substr(0, i);
-            std::string last =  input.substr(i+1, input.length()-i-1);
-            seen.insert(first + last);
+    std::regex regex("#([0-9]*) @ ([0-9]*),([0-9]*): ([0-9]*)x([0-9]*)");
+    std::smatch match;
+    std::vector<std::vector<int>> entries;
+    while(getline(file, input)) {
+        if (std::regex_search(input, match, regex)) {
+            std::vector<int> square = {std::stoi(match[1].str()), std::stoi(match[2].str()), std::stoi(match[3].str()),
+                             std::stoi(match[4].str()), std::stoi(match[5].str())};
+            entries.push_back(square);
         }
     }
-    brk:
-    std::cout << answer << std::endl;
+    int id;
+    for (auto square :entries) {
+        bool overlap = false;
+        for (auto check: entries) {
+            if (square == check) {
+                continue;
+            }
+            int start_match_x = square[1];
+            int start_check_x = check[1];
+            int size_match_x = square[3];
+            int size_check_x = check[3];
+            int start_match_y = square[2];
+            int start_check_y = check[2];
+            int size_match_y = square[4];
+            int size_check_y = check[4];
+            if (start_match_x < start_check_x + size_check_x && start_match_y < start_check_y + size_check_y &&
+                start_check_x < start_match_x + size_match_x && start_check_y < start_match_y + size_match_y) {
+                overlap = true;
+                break;
+            }
+        }
+        if (!overlap) {
+            id = square[0];
+            break;
+        }
+    }
+    std::cout << id << std::endl;
     file.close();
 }
 
