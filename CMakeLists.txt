@@ -33,7 +33,8 @@ set(SRC_2018
 
 set(SRC_2019
         src/2019/aoc_2019_01.cpp src/2019/aoc_2019_01.hpp
-        src/2019/aoc_2019_02.cpp src/2019/aoc_2019_02.hpp)
+        src/2019/aoc_2019_02.cpp src/2019/aoc_2019_02.hpp
+        src/2019/aoc_2019_03.cpp src/2019/aoc_2019_03.hpp)
 
 set(SRC_2020
         src/2020/aoc_2020_01.cpp src/2020/aoc_2020_01.hpp
