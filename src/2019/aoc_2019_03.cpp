@@ -3,6 +3,9 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <set>
+#include <utility>
+#include <climits>
 
 void run_2019_3_part_1(bool test) {
     std::ifstream file;
@@ -17,43 +20,78 @@ void run_2019_3_part_1(bool test) {
         file.open("../src/2019/input/day_3.txt");
     }
     std::vector<int> program;
-    std::string  input;
-    while (getline(file,input,  ',')) {
-        program.push_back(std::stoi(input));
-    }
-    if (!test) {
-        program[1] = 12;
-        program[2] = 2;
-    }
+    std::string input;
+    std::set<std::pair<int,int>> seen;
+    std::getline(file, input);
     int current = 0;
-    bool halt = false;
-    while (!halt) {
-        switch (program[current]) {
-            case 1: {
-                int index_store = program[current+3];
-                int index_add_1 = program[current+1];
-                int index_add_2 = program[current+2];
-                program[index_store] = program[index_add_1] + program[index_add_2];
-                current += 4;
-                break;
+    int x = 0;
+    int y = 0;
+    while (true) {
+        char direction = input[current];
+        int start = input.find_first_of("0123456789",current);
+        int end = input.find_first_not_of("0123456789", start);
+        int amount  = std::stoi(input.substr(start, end));
+        for (int i = 0; i < amount; i++) {
+            switch (direction) {
+                case 'R':
+                    x++;
+                    break;
+                case 'U':
+                    y++;
+                    break;
+                case 'L':
+                    x--;
+                    break;
+                case 'D':
+                    y--;
+                    break;
+                default:
+                    std::cout << "I have a bad feeling about this" << std::endl;
             }
-            case 2: {
-                int index_store = program[current+3];
-                int index_add_1 = program[current+1];
-                int index_add_2 = program[current+2];
-                program[index_store] = program[index_add_1] * program[index_add_2];
-                current += 4;
-                break;
-            }
-            case 99: {
-                halt = true;
-                break;
-            }
-            default:
-                std::cout << "I have a bad feeling about this" << std::endl;
+            seen.insert({x,y});
         }
+        if (end > 0)
+            current = end+1;
+        else
+            break;
     }
-    std::cout << program[0] << std::endl;
+    std::getline(file, input);
+    current = 0;
+    x = 0;
+    y = 0;
+    int minimum = INT_MAX;
+    while (true) {
+        char direction = input[current];
+        int start = input.find_first_of("0123456789",current);
+        int end = input.find_first_not_of("0123456789", start);
+        int amount  = std::stoi(input.substr(start, end));
+        for (int i = 0; i < amount; i++) {
+            switch (direction) {
+                case 'R':
+                    x++;
+                    break;
+                case 'U':
+                    y++;
+                    break;
+                case 'L':
+                    x--;
+                    break;
+                case 'D':
+                    y--;
+                    break;
+                default:
+                    std::cout << "I have a bad feeling about this" << std::endl;
+            }
+            if (std::abs(x)+std::abs(y) <= minimum && seen.find({x,y}) != seen.end()) {
+                minimum = std::abs(x)+std::abs(y);
+            }
+        }
+        if (end > 0)
+            current = end+1;
+        else
+            break;
+    }
+    std::cout << minimum << std::endl;
     file.close();
 }
 
@@ -71,50 +109,7 @@ void run_2019_3_part_2(bool test) {
     }
     std::vector<int> program;
     std::string  input;
-    while (getline(file,input,  ',')) {
-        program.push_back(std::stoi(input));
-    }
 
-    for (int i = 0; i < 100; i++) {
-        for (int j = 0; j < 100; j++) {
-            std::vector<int> memory  = program;
-            memory[1] = i;
-            memory[2] = j;
-            int current = 0;
-            bool halt = false;
-            while (!halt) {
-                switch (memory[current]) {
-                    case 1: {
-                        int index_store = memory[current + 3];
-                        int index_add_1 = memory[current + 1];
-                        int index_add_2 = memory[current + 2];
-                        memory[index_store] = memory[index_add_1] + memory[index_add_2];
-                        current += 4;
-                        break;
-                    }
-                    case 2: {
-                        int index_store = memory[current + 3];
-                        int index_add_1 = memory[current + 1];
-                        int index_add_2 = memory[current + 2];
-                        memory[index_store] = memory[index_add_1] * memory[index_add_2];
-                        current += 4;
-                        break;
-                    }
-                    case 99: {
-                        halt = true;
-                        break;
-                    }
-                    default:
-                        std::cout << "I have a bad feeling about this" << std::endl;
-                }
-            }
-            if (memory[0]== 19690720) {
-                std::cout << i*100 + j << std::endl;
-                goto done;
-            }
-        }
-    }
-    done:
     file.close();
 }
 
