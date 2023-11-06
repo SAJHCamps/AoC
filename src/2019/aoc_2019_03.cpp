@@ -6,6 +6,7 @@
 #include <set>
 #include <utility>
 #include <climits>
+#include <map>
 
 void run_2019_3_part_1(bool test) {
     std::ifstream file;
@@ -108,8 +109,86 @@ void run_2019_3_part_2(bool test) {
         file.open("../src/2019/input/day_3.txt");
     }
     std::vector<int> program;
-    std::string  input;
-
+    std::string input;
+    std::set<std::pair<int,int>> seen;
+    std::map<std::pair<int, int>, int> timing;
+    std::getline(file, input);
+    int current = 0;
+    int x = 0;
+    int y = 0;
+    int time = 0;
+    while (true) {
+        char direction = input[current];
+        int start = input.find_first_of("0123456789",current);
+        int end = input.find_first_not_of("0123456789", start);
+        int amount  = std::stoi(input.substr(start, end));
+        for (int i = 0; i < amount; i++) {
+            switch (direction) {
+                case 'R':
+                    x++;
+                    break;
+                case 'U':
+                    y++;
+                    break;
+                case 'L':
+                    x--;
+                    break;
+                case 'D':
+                    y--;
+                    break;
+                default:
+                    std::cout << "I have a bad feeling about this" << std::endl;
+            }
+            time++;
+            seen.insert({x,y});
+            if (timing.count({x,y}) == 0) {
+                timing[{x,y}] = time;
+            }
+        }
+        if (end > 0)
+            current = end+1;
+        else
+            break;
+    }
+    std::getline(file, input);
+    current = 0;
+    x = 0;
+    y = 0;
+    time = 0;
+    int minimum = INT_MAX;
+    while (true) {
+        char direction = input[current];
+        int start = input.find_first_of("0123456789",current);
+        int end = input.find_first_not_of("0123456789", start);
+        int amount  = std::stoi(input.substr(start, end));
+        for (int i = 0; i < amount; i++) {
+            switch (direction) {
+                case 'R':
+                    x++;
+                    break;
+                case 'U':
+                    y++;
+                    break;
+                case 'L':
+                    x--;
+                    break;
+                case 'D':
+                    y--;
+                    break;
+                default:
+                    std::cout << "I have a bad feeling about this" << std::endl;
+            }
+            time++;
+            if (seen.find({x,y}) != seen.end() && timing[{x,y}] + time <= minimum) {
+                minimum = time + timing[{x,y}];
+            }
+        }
+        if (end > 0)
+            current = end+1;
+        else
+            break;
+    }
+    std::cout << minimum << std::endl;
     file.close();
 }
 
