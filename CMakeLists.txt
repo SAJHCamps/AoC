@@ -38,7 +38,8 @@ set(SRC_2019
 
 set(SRC_2020
         src/2020/aoc_2020_01.cpp src/2020/aoc_2020_01.hpp
-        src/2020/aoc_2020_02.cpp src/2020/aoc_2020_02.hpp)
+        src/2020/aoc_2020_02.cpp src/2020/aoc_2020_02.hpp
+        src/2020/aoc_2020_03.cpp src/2020/aoc_2020_03.hpp)
 
 set(SRC_2021
         src/2021/aoc_2021_01.cpp src/2021/aoc_2021_01.hpp
