@@ -18,25 +18,19 @@ void run_2020_3_part_1(bool test) {
         file.open("../src/2020/input/day_3.txt");
     }
     std::string input;
-    int correct = 0;
+    int count = 0;
+    int x = 0;
+    std::getline(file, input);
+    int size = input.length();
+    if (input[x] == '#')
+        count++;
+    x = (x+3)%size;
     while (std::getline(file, input)) {
-        int sum = 0;
-        int start = 0;
-        int end =  input.find_first_not_of("0123456789");
-        int min = std::stoi(input.substr(start, end));
-        start = input.find_first_of("0123456789", end);
-        end =  input.find_first_not_of("0123456789", start);
-        int max = std::stoi(input.substr(start, end));
-        char check = input[end + 1];
-        for (char ch: input.substr(end+4, std::string::npos)) {
-            if (ch == check)
-                sum++;
-        }
-
-        if (min <= sum && sum <= max)
-            correct++;
+        if (input[x] == '#')
+            count++;
+        x = (x+3)%size;
     }
-    std::cout << correct << std::endl;
+    std::cout << count << std::endl;
     file.close();
 }
 
