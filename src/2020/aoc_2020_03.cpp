@@ -4,6 +4,7 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <utility>
 
 void run_2020_3_part_1(bool test) {
     std::ifstream file;
@@ -47,20 +48,28 @@ void run_2020_3_part_2(bool test) {
         file.open("../src/2020/input/day_3.txt");
     }
     std::string input;
-    int correct = 0;
-    while (std::getline(file, input)) {
-        int sum = 0;
-        int start = 0;
-        int end =  input.find_first_not_of("0123456789");
-        int min = std::stoi(input.substr(start, end));
-        start = input.find_first_of("0123456789", end);
-        end =  input.find_first_not_of("0123456789", start);
-        int max = std::stoi(input.substr(start, end));
-        char check = input[end + 1];
-        if (input[end + min + 3] == check ^ input[end + max + 3] == check)
-            correct++;
+    int y = 1;
+    std::pair<int,int> directions[5] = {{1,1}, {3,1}, {5,1}, {7,1}, {1,2}};
+    long count[5] = {0,0,0,0,0};
+    int x[5] = {0,0,0,0,0};
+    std::getline(file, input);
+    int size = input.length();
+    for (int i = 0; i < 5; i++) {
+        if (input[x[i]] == '#')
+            count[i]++;
+        x[i] = (x[i]+directions[i].first)%size;
     }
-    std::cout << correct << std::endl;
+    while (std::getline(file, input)) {
+        for (int i = 0; i < 5; i++) {
+            if (y % directions[i].second == 0) {
+                if (input[x[i]] == '#')
+                    count[i]++;
+                x[i] = (x[i]+directions[i].first)%size;
+            }
+        }
+        y++;
+    }
+    std::cout << count[0] * count[1] * count[2] * count[3] * count[4] << std::endl;
     file.close();
 }
 
