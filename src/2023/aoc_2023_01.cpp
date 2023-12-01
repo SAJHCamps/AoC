@@ -16,8 +16,18 @@ void run_2023_1_part_1(bool test) {
         file.open("../src/2023/input/day_1.txt");
     }
     std::string input;
-    std::getline(file,input);
-    std::cout << input << std::endl;
+    int score = 0;
+    while(std::getline(file,input)) {
+        int first = input.find_first_of("0123456789");
+        int last = input.find_first_of("0123456789", first+1);
+        int second_last = first;
+        while (last != std::string::npos) {
+            second_last = last;
+            last = input.find_first_of("0123456789", last+1);
+        }
+        score += 10*(input[first]- '0') + input[second_last] - '0';
+    }
+    std::cout << score << std::endl;
     file.close();
 }
 
