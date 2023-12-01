@@ -54,6 +54,9 @@
 #include "2022/aoc_2022_10.hpp"
 #include "2022/aoc_2022_11.hpp"
 
+//2023
+#include "2023/aoc_2023_01.hpp"
+
 //update when starting new year to ease specification
 #define MAX_YEAR 2022
 
@@ -729,6 +732,168 @@ struct ProgramOptions {
 //                    case 25:
 //                        aoc_20xx_25(test, part_1, part_2);
 //                        break;
+                    case 2021:
+                        switch (local_day) {
+                            case 1:
+                                aoc_2021_01(test, part_1, part_2);
+                                break;
+                            case 2:
+                                aoc_2021_02(test, part_1, part_2);
+                                break;
+//                    case 3:
+//                        aoc_2015_03(test, part_1, part_2);
+//                        break;
+//                    case 4:
+//                        aoc_2015_04(test, part_1, part_2);
+//                        break;
+//                    case 5:
+//                        aoc_2015_05(test, part_1, part_2);
+//                        break;
+//                    case 6:
+//                        aoc_2015_06(test, part_1, part_2);
+//                        break;
+//                    case 7:
+//                        aoc_20xx_07(test, part_1, part_2);
+//                        break;
+//                    case 8:
+//                        aoc_20xx_08(test, part_1, part_2);
+//                        break;
+//                    case 9:
+//                        aoc_20xx_09(test, part_1, part_2);
+//                        break;
+//                    case 10:
+//                        aoc_20xx_10(test, part_1, part_2);
+//                        break;
+//                    case 11:
+//                        aoc_20xx_11(test, part_1, part_2);
+//                        break;
+//                    case 12:
+//                        aoc_20xx_12(test, part_1, part_2);
+//                        break;
+//                    case 13:
+//                        aoc_20xx_13(test, part_1, part_2);
+//                        break;
+//                    case 14:
+//                        aoc_20xx_14(test, part_1, part_2);
+//                        break;
+//                    case 15:
+//                        aoc_20xx_15(test, part_1, part_2);
+//                        break;
+//                    case 16:
+//                        aoc_20xx_16(test, part_1, part_2);
+//                        break;
+//                    case 17:
+//                        aoc_20xx_17(test, part_1, part_2);
+//                        break;
+//                    case 18:
+//                        aoc_20xx_18(test, part_1, part_2);
+//                        break;
+//                    case 19:
+//                        aoc_20xx_19(test, part_1, part_2);
+//                        break;
+//                    case 20:
+//                        aoc_20xx_20(test, part_1, part_2);
+//                        break;
+//                    case 21:
+//                        aoc_20xx_21(test, part_1, part_2);
+//                        break;
+//                    case 22:
+//                        aoc_20xx_22(test, part_1, part_2);
+//                        break;
+//                    case 23:
+//                        aoc_20xx_23(test, part_1, part_2);
+//                        break;
+//                    case 24:
+//                        aoc_20xx_24(test, part_1, part_2);
+//                        break;
+//                    case 25:
+//                        aoc_20xx_25(test, part_1, part_2);
+//                        break;
+                            default:
+                                std::cout << "Day " << local_day << " not in range" << std::endl;
+                        }
+                        break;
+                    case 2023:
+                        switch (local_day) {
+                            case 1:
+                                aoc_2023_01(test, part_1, part_2);
+                                break;
+//                            case 2:
+//                                aoc_2021_02(test, part_1, part_2);
+//                                break;
+//                    case 3:
+//                        aoc_2015_03(test, part_1, part_2);
+//                        break;
+//                    case 4:
+//                        aoc_2015_04(test, part_1, part_2);
+//                        break;
+//                    case 5:
+//                        aoc_2015_05(test, part_1, part_2);
+//                        break;
+//                    case 6:
+//                        aoc_2015_06(test, part_1, part_2);
+//                        break;
+//                    case 7:
+//                        aoc_20xx_07(test, part_1, part_2);
+//                        break;
+//                    case 8:
+//                        aoc_20xx_08(test, part_1, part_2);
+//                        break;
+//                    case 9:
+//                        aoc_20xx_09(test, part_1, part_2);
+//                        break;
+//                    case 10:
+//                        aoc_20xx_10(test, part_1, part_2);
+//                        break;
+//                    case 11:
+//                        aoc_20xx_11(test, part_1, part_2);
+//                        break;
+//                    case 12:
+//                        aoc_20xx_12(test, part_1, part_2);
+//                        break;
+//                    case 13:
+//                        aoc_20xx_13(test, part_1, part_2);
+//                        break;
+//                    case 14:
+//                        aoc_20xx_14(test, part_1, part_2);
+//                        break;
+//                    case 15:
+//                        aoc_20xx_15(test, part_1, part_2);
+//                        break;
+//                    case 16:
+//                        aoc_20xx_16(test, part_1, part_2);
+//                        break;
+//                    case 17:
+//                        aoc_20xx_17(test, part_1, part_2);
+//                        break;
+//                    case 18:
+//                        aoc_20xx_18(test, part_1, part_2);
+//                        break;
+//                    case 19:
+//                        aoc_20xx_19(test, part_1, part_2);
+//                        break;
+//                    case 20:
+//                        aoc_20xx_20(test, part_1, part_2);
+//                        break;
+//                    case 21:
+//                        aoc_20xx_21(test, part_1, part_2);
+//                        break;
+//                    case 22:
+//                        aoc_20xx_22(test, part_1, part_2);
+//                        break;
+//                    case 23:
+//                        aoc_20xx_23(test, part_1, part_2);
+//                        break;
+//                    case 24:
+//                        aoc_20xx_24(test, part_1, part_2);
+//                        break;
+//                    case 25:
+//                        aoc_20xx_25(test, part_1, part_2);
+//                        break;
+                            default:
+                                std::cout << "Day " << local_day << " not in range" << std::endl;
+                        }
+                        break;
                     default:
                         std::cout << "Day " << local_day << " not in range" << std::endl;
                     }
