@@ -56,6 +56,7 @@
 
 //2023
 #include "2023/aoc_2023_01.hpp"
+#include "2023/aoc_2023_02.hpp"
 
 //update when starting new year to ease specification
 #define MAX_YEAR 2023
@@ -741,9 +742,9 @@ struct ProgramOptions {
                     case 1:
                         aoc_2023_01(test, part_1, part_2);
                         break;
-//                    case 2:
-//                        aoc_2021_02(test, part_1, part_2);
-//                        break;
+                    case 2:
+                        aoc_2023_02(test, part_1, part_2);
+                        break;
 //                    case 3:
 //                        aoc_2015_03(test, part_1, part_2);
 //                        break;
