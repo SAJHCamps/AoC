@@ -18,15 +18,32 @@ void run_2023_2_part_1(bool test) {
     }
     std::string input;
     int score = 0;
+    int line = 0;
     while(std::getline(file,input)) {
-        int first = input.find_first_of("0123456789");
-        int last = input.find_first_of("0123456789", first+1);
-        int second_last = first;
-        while (last != std::string::npos) {
-            second_last = last;
-            last = input.find_first_of("0123456789", last+1);
+        line++;
+        int current = input.find_first_of(':');
+        int end = input.find_first_of(';');
+        bool possible = true;
+        while (current != std::string::npos) {
+            std::string game_input = input.substr(current+1, end - current -1);
+            int current_hand = 0;
+            int end_hand = game_input.find_first_of(',');
+            while (current_hand != std::string::npos) {
+                std::string hand_input = game_input.substr(current_hand+1, end_hand- current_hand -1);
+                int amount = std::stoi(hand_input.substr(hand_input.find_first_of("0123456789")));
+                if ((hand_input.find("red") != std::string::npos && amount > 12)
+                    || (hand_input.find("green") != std::string::npos && amount > 13)
+                    || (hand_input.find("blue") != std::string::npos && amount > 14)) {
+                    possible = false;
+                }
+                current_hand = end_hand;
+                end_hand = game_input.find_first_of(',', end_hand+1);
+            }
+            current = end;
+            end = input.find_first_of(';', end+1);
         }
-        score += 10*(input[first]- '0') + input[second_last] - '0';
+        if (possible)
+            score += line;
     }
     std::cout << score << std::endl;
     file.close();
