@@ -62,26 +62,32 @@ void run_2023_2_part_2(bool test) {
         file.open("../src/2023/input/day_2.txt");
     }
     std::string input;
-    std::string input_parsed;
     int score = 0;
-    std::vector<std::string> literals = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
     while(std::getline(file,input)) {
-        input_parsed = input;
-        for (int i = 0; i <= 8; i++) {
-            int index = input.find(literals[i]);
-            while (index != std::string::npos) {
-                input_parsed.replace(index, 1, std::to_string(i+1));
-                index = input.find(literals[i], index+1);
+        int current = input.find_first_of(':');
+        int end = input.find_first_of(';');
+        int colours[] = {0,0,0};
+        while (current != std::string::npos) {
+            std::string game_input = input.substr(current+1, end - current -1);
+            int current_hand = 0;
+            int end_hand = game_input.find_first_of(',');
+            while (current_hand != std::string::npos) {
+                std::string hand_input = game_input.substr(current_hand+1, end_hand- current_hand -1);
+                int amount = std::stoi(hand_input.substr(hand_input.find_first_of("0123456789")));
+                if (hand_input.find("red") != std::string::npos && amount > colours[0]) {
+                    colours[0] = amount;
+                } else if (hand_input.find("green") != std::string::npos && amount > colours[1]) {
+                    colours[1] = amount;
+                } else if (hand_input.find("blue") != std::string::npos && amount > colours[2]) {
+                    colours[2] = amount;
+                }
+                current_hand = end_hand;
+                end_hand = game_input.find_first_of(',', end_hand+1);
             }
+            current = end;
+            end = input.find_first_of(';', end+1);
         }
-        int first = input_parsed.find_first_of("0123456789");
-        int last = input_parsed.find_first_of("0123456789", first+1);
-        int second_last = first;
-        while (last != std::string::npos) {
-            second_last = last;
-            last = input_parsed.find_first_of("0123456789", last+1);
-        }
-        score += 10*(input_parsed[first]- '0') + input_parsed[second_last] - '0';
+        score += colours[0] * colours[1] * colours[2];
     }
     std::cout << score << std::endl;
     file.close();
