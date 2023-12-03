@@ -4,23 +4,6 @@
 #include <string>
 #include <vector>
 
-int find_number(std::string schematic, int pos) {
-    if ('0' <= schematic[pos] && '9' >= schematic[pos] ){
-        int begin = pos -1;
-        int end = pos+1;
-        while ('0' <= schematic[begin] && '9' >= schematic[begin] && begin >= 0)
-            begin--;
-        while ('0' <= schematic[end] && '9' >= schematic[end] && end < schematic.size())
-            end++;
-        begin++;
-        end--;
-        return std::stoi(schematic.substr(begin, end-begin+1));
-    }
-    else {
-        return -1;
-    }
-}
-
 void run_2023_3_part_1(bool test) {
     std::ifstream file;
     std::cout << "Part 1 day 2" << std::endl;
@@ -38,7 +21,7 @@ void run_2023_3_part_1(bool test) {
     while(std::getline(file,input)) {
         schematic.push_back(input);
     }
-    int score;
+    int score = 0;
     for (int i = 0; i < schematic.size(); i++) {
         int current_symbol = schematic[i].find_first_of("0123456789");
         while (current_symbol != std::string::npos) {
@@ -64,6 +47,22 @@ void run_2023_3_part_1(bool test) {
     file.close();
 }
 
+int find_number(std::string line, int pos) {
+    if (pos < 0 && pos >= line.size())
+        return -1;
+    if (line[pos] < '0' || line[pos] > '9')
+        return -1;
+    int end = pos;
+    while ('0' <= line[end] && '9' >= line[end] && end < line.size())
+        end++;
+    end--;
+    int begin = pos;
+    while ('0' <= line[begin] && '9' >= line[begin] && begin >= 0)
+        begin--;
+    begin++;
+    return std::stoi(line.substr(begin, end - begin+1));
+}
+
 void run_2023_3_part_2(bool test) {
     std::ifstream file;
     std::cout << "Part 2 day 2" << std::endl;
@@ -77,32 +76,53 @@ void run_2023_3_part_2(bool test) {
         file.open("../src/2023/input/day_3.txt");
     }
     std::string input;
-    int score = 0;
+    std::vector<std::string> schematic;
     while(std::getline(file,input)) {
-        int current = input.find_first_of(':');
-        int end = input.find_first_of(';');
-        int colours[] = {0,0,0};
-        while (current != std::string::npos) {
-            std::string game_input = input.substr(current+1, end - current -1);
-            int current_hand = 0;
-            int end_hand = game_input.find_first_of(',');
-            while (current_hand != std::string::npos) {
-                std::string hand_input = game_input.substr(current_hand+1, end_hand- current_hand -1);
-                int amount = std::stoi(hand_input.substr(hand_input.find_first_of("0123456789")));
-                if (hand_input.find("red") != std::string::npos && amount > colours[0]) {
-                    colours[0] = amount;
-                } else if (hand_input.find("green") != std::string::npos && amount > colours[1]) {
-                    colours[1] = amount;
-                } else if (hand_input.find("blue") != std::string::npos && amount > colours[2]) {
-                    colours[2] = amount;
+        schematic.push_back(input);
+    }
+    int score = 0;
+    for (int i = 0; i < schematic.size(); i++) {
+        int current_symbol = schematic[i].find_first_of('*');
+        while (current_symbol != std::string::npos) {
+            std::vector<int> found;
+            if (i > 0) {
+                if (schematic[i-1][current_symbol] >= '0' && schematic[i-1][current_symbol] <= '9') {
+                    found.push_back(find_number(schematic[i-1], current_symbol));
                 }
-                current_hand = end_hand;
-                end_hand = game_input.find_first_of(',', end_hand+1);
+                else {
+                    int left_number = find_number(schematic[i-1], current_symbol-1);
+                    int right_number = find_number(schematic[i-1], current_symbol+1);
+                    if (left_number > 0)
+                        found.push_back(left_number);
+                    if (right_number > 0)
+                        found.push_back(right_number);
+                }
             }
-            current = end;
-            end = input.find_first_of(';', end+1);
+            if (i < schematic.size()-1) {
+                if (schematic[i+1][current_symbol] >= '0' && schematic[i+1][current_symbol] <= '9') {
+                    found.push_back(find_number(schematic[i+1], current_symbol));
+                }
+                else {
+                    int left_number = find_number(schematic[i+1], current_symbol-1);
+                    int right_number = find_number(schematic[i+1], current_symbol+1);
+                    if (left_number > 0)
+                        found.push_back(left_number);
+                    if (right_number > 0)
+                        found.push_back(right_number);
+                }
+            }
+            int left_number = find_number(schematic[i], current_symbol-1);
+            int right_number = find_number(schematic[i], current_symbol+1);
+            if (left_number > 0)
+                found.push_back(left_number);
+            if (right_number > 0)
+                found.push_back(right_number);
+
+            if (found.size() == 2) {
+                score += found[0]*found[1];
+            }
+            current_symbol = schematic[i].find_first_of('*', current_symbol+1);
         }
-        score += colours[0] * colours[1] * colours[2];
     }
     std::cout << score << std::endl;
     file.close();
