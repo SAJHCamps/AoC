@@ -18,25 +18,27 @@ void run_2021_3_part_1(bool test) {
         file.open("../src/2021/input/day_3.txt");
     }
     std::string input;
-    int depth = 0;
-    int dist = 0;
+    int lines = 0;
+    int occurrence[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
     while (std::getline(file,input)) {
-        int amount = std::stoi(input.substr(input.find_first_of("0123456789")));
-        switch (input[0]) {
-            case 'f':
-                dist += amount;
-                break;
-            case 'd':
-                depth += amount;
-                break;
-            case 'u':
-                depth -= amount;
-                break;
-            default:
-                break;
+        for (int i = 0; i < input.size(); i++) {
+            occurrence[i] += input[i] - '0';
+        }
+        lines++;
+    }
+    int gamma = 0;
+    int epsilon = 0;
+    for (int i = 0; i < input.size(); i++) {
+        if (occurrence[i]*2 > lines) {
+            gamma  = gamma*2 + 1;
+            epsilon = epsilon*2;
+        }
+        else {
+            gamma  = gamma*2;
+            epsilon = epsilon*2 + 1;
         }
     }
-    std::cout << depth * dist << std::endl;
+    std::cout << gamma * epsilon << std::endl;
     file.close();
 }
 
