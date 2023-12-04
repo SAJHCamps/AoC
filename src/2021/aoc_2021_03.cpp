@@ -55,27 +55,61 @@ void run_2021_3_part_2(bool test) {
         file.open("../src/2021/input/day_3.txt");
     }
     std::string input;
-    int angle = 0;
-    int depth = 0;
-    int dist = 0;
+    std::vector<std::string> total_lines;
     while (std::getline(file,input)) {
-        int amount = std::stoi(input.substr(input.find_first_of("0123456789")));
-        switch (input[0]) {
-            case 'f':
-                dist += amount;
-                depth += angle*amount;
-                break;
-            case 'd':
-                angle += amount;
-                break;
-            case 'u':
-                angle -= amount;
-                break;
-            default:
-                break;
+        total_lines.push_back(input);
+    }
+    std::vector<std::string> oxygen_lines (total_lines.size());
+    std::copy(total_lines.begin(), total_lines.end(),oxygen_lines.begin());
+
+    for (int bit = 0; bit < input.size(); bit++){
+        if (oxygen_lines.size() == 1)
+            break;
+        int occurrence = 0;
+        for (std::string line :oxygen_lines) {
+            occurrence += line[bit] - '0';
+        }
+        int target;
+        if (2*occurrence >= oxygen_lines.size()) {
+            target = 1;
+        }
+        else {
+            target = 0;
+        }
+        for (int i = 0; i < oxygen_lines.size(); i++) {
+            if (oxygen_lines[i][bit]-'0' != target) {
+                oxygen_lines.erase(oxygen_lines.begin()+i);
+                i--;
+            }
         }
     }
-    std::cout << depth * dist << std::endl;
+
+    std::vector<std::string> scrub_lines (total_lines.size());
+    std::copy(total_lines.begin(), total_lines.end(),scrub_lines.begin());
+
+    for (int bit = 0; bit < input.size(); bit++){
+        if (scrub_lines.size() == 1) {
+            break;
+        }
+        int occurrence = 0;
+        for (std::string line :scrub_lines) {
+            occurrence += line[bit] - '0';
+        }
+        int target;
+        if (2*occurrence >= scrub_lines.size())
+            target = 0;
+        else
+            target = 1;
+
+        for (int i = 0; i < scrub_lines.size(); i++) {
+            if (scrub_lines[i][bit]-'0' != target) {
+                scrub_lines.erase(scrub_lines.begin()+i);
+                i--;
+            }
+        }
+    }
+
+    std::cout << std::stoi(scrub_lines[0], nullptr,2) * std::stoi(oxygen_lines[0], nullptr,2) << std::endl;
     file.close();
 }
 
