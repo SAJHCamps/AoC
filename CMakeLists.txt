@@ -63,7 +63,8 @@ set(SRC_2023
         src/2023/aoc_2023_01.cpp src/2023/aoc_2023_01.hpp
         src/2023/aoc_2023_02.cpp src/2023/aoc_2023_02.hpp
         src/2023/aoc_2023_03.cpp src/2023/aoc_2023_03.hpp
-        src/2023/aoc_2023_04.cpp src/2023/aoc_2023_04.hpp)
+        src/2023/aoc_2023_04.cpp src/2023/aoc_2023_04.hpp
+        src/2023/aoc_2023_05.cpp src/2023/aoc_2023_05.hpp)
 
 #OpenSSl for 2015 day 4
 find_package(OpenSSL REQUIRED)
